@@ -1,0 +1,65 @@
+{
+  "name": "dialogo",
+  "version": "0.1.0",
+  "description": "An opinionated modal component for React.",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "default": "./dist/index.js"
+    },
+    "./dist/styles.css": "./dist/styles.css"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "bunchee --watch",
+    "build": "bunchee",
+    "type-check": "tsc --noEmit",
+    "dev:website": "turbo run dev --filter=website...",
+    "dev:test": "turbo run dev --filter=test...",
+    "format": "prettier --write .",
+    "test": "playwright test"
+  },
+  "keywords": [
+    "react",
+    "modal",
+    "dialog",
+    "multi-step"
+  ],
+  "author": "Edoardo Guido <ciao@edoardoguido.com>",
+  "license": "MIT",
+  "homepage": "https://edoardoguido.com/",
+  "devDependencies": {
+    "@eslint/eslintrc": "latest",
+    "@playwright/test": "^1.49.1",
+    "@types/node": "^18.11.13",
+    "@types/react": "^18.0.26",
+    "bunchee": "^6.5.2",
+    "eslint": "^9.27.0",
+    "eslint-config-next": "latest",
+    "prettier": "^2.8.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "turbo": "2.5.3",
+    "typescript": "^5.8.3"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0 || ^19.0.0-rc",
+    "react-dom": "^18.0.0 || ^19.0.0 || ^19.0.0-rc"
+  },
+  "packageManager": "pnpm@8.12.1",
+  "dependencies": {
+    "motion": "^12.12.1",
+    "react-use-measure": "^2.1.7"
+  }
+}
