@@ -1,0 +1,54 @@
+:root {
+  --dialogo-color-background: white;
+  --dialogo-color-text: black;
+  --dialogo-color-overlay-transparency: 0.2;
+  --dialogo-color-overlay-background: rgba(0, 0, 0, var(--dialogo-color-overlay-transparency));
+
+  --dialogo-border-radius: 0.5rem;
+  --dialogo-padding-top: 0;
+  --dialogo-padding-right: 0;
+  --dialogo-padding-bottom: 0;
+  --dialogo-padding-left: 0;
+
+  --dialogo-min-width: 24rem;
+  --dialogo-min-height: 12rem;
+}
+
+[data-dialogo-container] {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  isolation: isolate;
+  perspective: 1500px;
+}
+
+[data-dialogo-overlay] {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--dialogo-color-overlay-background);
+
+  backdrop-filter: blur(10px);
+}
+
+[data-dialogo-modal] {
+  color: var(--dialogo-color-text);
+  background: var(--dialogo-color-background);
+  border-radius: var(--dialogo-border-radius);
+  padding: var(--dialogo-padding-top) var(--dialogo-padding-right) var(--dialogo-padding-bottom)
+    var(--dialogo-padding-left);
+  overflow: hidden;
+  /* min-width: var(--dialogo-min-width); */
+  /* min-height: var(--dialogo-min-height); */
+
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+}
+
+[data-dialogo-view-content] {
+  width: fit-content !important;
+  overflow: hidden;
+}
