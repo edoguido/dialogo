@@ -1,7 +1,7 @@
 {
   "name": "dialogo",
   "version": "0.1.0",
-  "description": "An opinionated modal component for React.",
+  "description": "An opinionated dialog component for React.",
   "exports": {
     ".": {
       "import": {
