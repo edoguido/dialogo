@@ -9,6 +9,8 @@
   --dialogo-padding-right: 0;
   --dialogo-padding-bottom: 0;
   --dialogo-padding-left: 0;
+  --dialogo-margin-x: var(--dialogo-margin-left, var(--dialogo-margin-right, 0px)); /* fallback chain in CSS */
+  --dialogo-margin-y: var(--dialogo-margin-top, var(--dialogo-margin-bottom, 0px));
 
   --dialogo-min-width: 24rem;
   --dialogo-min-height: 12rem;
@@ -42,13 +44,28 @@
   padding: var(--dialogo-padding-top) var(--dialogo-padding-right) var(--dialogo-padding-bottom)
     var(--dialogo-padding-left);
   overflow: hidden;
-  /* min-width: var(--dialogo-min-width); */
-  /* min-height: var(--dialogo-min-height); */
+  will-change: contents, transform, opacity; /* This helps transition from view to view otherwise it doesn't animate view sizes correctly */
 
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08), 0 1.5px 6px rgba(0, 0, 0, 0.12);
 }
 
-[data-dialogo-view-content] {
+[data-dialogo-view] {
   width: fit-content !important;
   overflow: hidden;
+  will-change: contents, transform, opacity;
+}
+
+@media screen and (max-width: 480px) {
+  [data-dialogo-container] {
+    align-items: end;
+  }
+
+  [data-dialogo-modal] {
+    border-radius: var(--dialogo-border-radius) var(--dialogo-border-radius) 0 0;
+    width: calc(100vw - var(--dialogo-margin-x));
+    min-width: calc(100vw - var(--dialogo-margin-x));
+    max-width: calc(100vw - var(--dialogo-margin-x));
+    max-height: 90vh;
+    padding-bottom: env(--safe-area-bottom, 2rem);
+  }
 }
