@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
@@ -25,3 +25,26 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+[data-dialogo-modal] {
+  --y-from: 0%;
+  --y-to: 0%;
+
+  --opacity-from: 1;
+  --opacity-to: 1;
+
+  --scale-from: 0.95;
+  --scale-to: 1;
+}
+
+@media screen and (max-width: 480px) {
+  [data-dialogo-modal] {
+    --y-from: 100%;
+    --y-to: 0%;
+
+    --opacity-from: 1;
+    --opacity-to: 1;
+
+    --scale-from: 1;
+    --scale-to: 1;
+  }
+}
