@@ -4,11 +4,11 @@ import { motion, AnimatePresence, Variants, AnimatePresenceProps } from 'motion/
 import useMeasure from 'react-use-measure';
 
 import React, { useEffect, useState } from 'react';
-import modal, { ModalState } from './state';
+import modal, { type ModalState } from 'dialogo';
 
 import './style.css';
 
-type DialogoT = {
+type ModalT = {
   modalVariants?: Variants;
   viewVariants?: Variants;
   viewTransitionMode?: AnimatePresenceProps['mode'];
@@ -20,10 +20,10 @@ type DialogoT = {
  * exit animations, but I'm aiming at getting rid of them in the future
  */
 
-function Dialogo(props: DialogoT) {
+function Modal(props: ModalT) {
   const { modalVariants = MODAL_VARIANTS, viewVariants = VIEW_VARIANTS, viewTransitionMode = 'popLayout' } = props;
 
-  const { isOpen, activeView } = useDialogo();
+  const { isOpen, activeView } = useModal();
   const [elementRef, bounds] = useMeasure({ offsetSize: true });
 
   const modalVariantsAnimateType = typeof modalVariants.animate;
@@ -31,7 +31,7 @@ function Dialogo(props: DialogoT) {
     modalVariantsAnimateType === 'object'
       ? // if it's an object, we overwrite width and height animation
         // in order to animate them
-        (bounds) => ({
+        (bounds: { width: number; height: number }) => ({
           ...modalVariants.animate,
           width: bounds.width,
           height: bounds.height,
@@ -162,7 +162,7 @@ const DIALOGO_INITIAL_STATE: ModalState = {
   hasHistory: false,
 };
 
-export const useDialogo = () => {
+export const useModal = () => {
   const [state, setState] = useState<ModalState>(DIALOGO_INITIAL_STATE);
 
   useEffect(() => {
@@ -179,4 +179,4 @@ const closeOnEscapeKey = (e) => {
   }
 };
 
-export default Dialogo;
+export default Modal;

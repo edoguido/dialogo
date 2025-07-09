@@ -1,7 +1,7 @@
 {
   "name": "dialogo",
   "version": "0.1.0",
-  "description": "An opinionated dialog component for React.",
+  "description": "An unopinionated modal engine",
   "exports": {
     ".": {
       "import": {
@@ -13,8 +13,7 @@
         "default": "./dist/index.js"
       },
       "default": "./dist/index.js"
-    },
-    "./dist/styles.css": "./dist/styles.css"
+    }
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -23,12 +22,14 @@
   ],
   "scripts": {
     "dev": "bunchee --watch",
-    "build": "bunchee && cp src/styles.css dist/styles.css",
+    "build": "bunchee",
     "type-check": "tsc --noEmit",
-    "dev:website": "turbo run dev --filter=website...",
-    "dev:test": "turbo run dev --filter=test...",
+    "dev:website": "turbo run dev --filter=dialogo-website...",
     "format": "prettier --write .",
-    "test": "playwright test"
+    "test": "playwright test",
+    "test:unit": "vitest",
+    "test:unit:run": "vitest run",
+    "test:unit:coverage": "vitest run --coverage"
   },
   "keywords": [
     "react",
@@ -51,15 +52,13 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "turbo": "2.5.3",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^2.1.8",
+    "jsdom": "^26.1.0",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/jest-dom": "^6.6.3"
   },
-  "peerDependencies": {
-    "react": "^18.0.0 || ^19.0.0 || ^19.0.0-rc",
-    "react-dom": "^18.0.0 || ^19.0.0 || ^19.0.0-rc"
-  },
+  "peerDependencies": {},
   "packageManager": "pnpm@8.12.1",
-  "dependencies": {
-    "motion": "^12.12.1",
-    "react-use-measure": "^2.1.7"
-  }
+  "dependencies": {}
 }

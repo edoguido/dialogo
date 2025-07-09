@@ -1,8 +1,8 @@
 'use client';
 
-import Dialogo from 'dialogo';
-import modal from 'dialogo/state';
+import modal from 'dialogo';
 import { motion, Variants } from 'motion/react';
+import Modal from './modal';
 
 const MODAL_VARIANTS: Variants = {
   initial: {
@@ -39,7 +39,7 @@ export default function Home() {
       >
         Open modal
       </button>
-      <Dialogo viewTransitionMode="popLayout" modalVariants={MODAL_VARIANTS} />
+      <Modal viewTransitionMode="popLayout" modalVariants={MODAL_VARIANTS} />
     </div>
   );
 }

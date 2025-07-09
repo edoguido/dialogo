@@ -1,8 +1,22 @@
+/**
+ * Framework-agnostic content type for modal content.
+ * Supports:
+ * - DOM Elements (vanilla JS)
+ * - Strings (HTML content)
+ * - Framework objects (React elements, Vue components, etc.)
+ */
+type ModalContent = Element | string | object
+
+/**
+ * Modal state interface that works across all frameworks.
+ * The element property can contain any content.
+ */
 export type ModalState = {
   isOpen: boolean;
-  activeView: { element: React.ReactNode | null; id: number };
+  activeView: { element: ModalContent; id: number } | null;
   hasHistory: boolean;
 };
+
 
 type Subscriber = (state: ModalState) => void;
 
@@ -18,7 +32,7 @@ class Observer {
   private viewHistory: Array<ModalState['activeView']> = [];
   // activeView is derived from viewHistory
 
-  private constructor() {}
+  private constructor() { }
 
   public static getInstance(): Observer {
     if (!Observer.instance) {
@@ -46,7 +60,11 @@ class Observer {
     return this.viewHistory[this.viewHistory.length - 1] || null;
   };
 
-  public open = (content: React.ReactNode): void => {
+  /**
+   * Opens a modal with the specified content.
+   * @param content - Framework-agnostic content (DOM Element, string, React element, Vue component, etc.)
+   */
+  public open = (content: ModalContent): void => {
     // reset the history with new content
     // -- we probably want to instead open another modal in this case
     this.viewHistory = [{ id: this.viewHistory.length, element: content }];
@@ -54,7 +72,11 @@ class Observer {
     this.notify();
   };
 
-  public navigate = (content: React.ReactNode): void => {
+  /**
+   * Navigates to a new step in the modal with the specified content.
+   * @param content - Framework-agnostic content (DOM Element, string, React element, Vue component, etc.)
+   */
+  public navigate = (content: ModalContent): void => {
     this.viewHistory.push({ id: this.viewHistory.length, element: content });
     this.notify();
   };
@@ -71,6 +93,16 @@ class Observer {
   public close = (): void => {
     this.isOpen = false;
     this.viewHistory = [];
+    this.notify();
+  };
+
+  public hide = (): void => {
+    this.isOpen = false;
+    this.notify();
+  };
+
+  public show = (): void => {
+    this.isOpen = true;
     this.notify();
   };
 }
