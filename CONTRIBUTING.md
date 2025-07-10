@@ -68,8 +68,8 @@ dialogo/
 When adding new features, ensure proper TypeScript definitions that are framework-agnostic:
 
 ```typescript
-// ✅ Good - Framework-agnostic types
-type ModalContent = Element | string | object;
+// ✅ Good - Generic type that accepts any content
+type ModalContent<T = any> = T;
 
 // ✅ Good - Descriptive interface that works with any framework
 export type ModalState = {
@@ -85,7 +85,7 @@ export type ModalState = {
 2. **Simplicity**: Keep the API intuitive
 3. **Flexibility**: Support multiple use cases
 4. **Type Safety**: Provide comprehensive TypeScript support
-5. **Framework Agnostic**: Ensure types work with React, Vue, Svelte, and any other framework
+5. **Framework Agnostic**: Ensure types work with any framework without conflicts
 
 ### Testing Strategy
 
@@ -98,7 +98,8 @@ export type ModalState = {
 - Test with different DOM elements (HTML, SVG, custom elements)
 - Test navigation history functionality
 - Test subscription/unsubscription patterns
-- Test framework-agnostic type compatibility
+- Test generic type compatibility with any framework
+- Test multiple Dialogo instances (no singleton)
 
 #### Automated Testing
 
@@ -125,7 +126,7 @@ pnpm type-check
 - **Framework Examples**: Integration guides for Vue, Svelte, etc.
 - **Testing**: Additional test coverage including framework compatibility tests
 - **Build Optimization**: Improving bundle size and compatibility
-- **Type Safety**: Ensuring framework-agnostic types work with all frameworks
+- **Type Safety**: Ensuring generic types work with all frameworks
 
 ### Low Priority
 
@@ -343,3 +344,43 @@ pnpm format           # Format code
 **Thank you for contributing to Dialogo!** 🎉
 
 Your contributions help make Dialogo better for everyone in the JavaScript ecosystem.
+
+### React
+
+```typescript
+import Dialogo from 'dialogo';
+const dialogo = new Dialogo();
+dialogo.open(<MyComponent />);
+```
+
+### Vue
+
+```typescript
+import Dialogo from 'dialogo';
+const dialogo = new Dialogo();
+dialogo.open(vueComponent);
+```
+
+### Svelte
+
+```typescript
+import Dialogo from 'dialogo';
+const dialogo = new Dialogo();
+dialogo.open(svelteComponent);
+```
+
+### Vanilla JavaScript
+
+```typescript
+import Dialogo from 'dialogo';
+const dialogo = new Dialogo();
+dialogo.open(document.createElement('div'));
+```
+
+### Any Framework
+
+```typescript
+import Dialogo from 'dialogo';
+const dialogo = new Dialogo();
+dialogo.open(anyFrameworkComponent);
+```

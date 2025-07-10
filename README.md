@@ -1,18 +1,18 @@
 # Dialogo
 
-> **Headless dialog engine with built-in navigation history**
+> **Framework-agnostic modal state management**
 
-Dialogo is a zero-dependency, headless dialog engine that provides a powerful state management system with navigation history. Unlike traditional modal libraries, Dialogo is completely unopinionated about UI and works with any framework or vanilla JavaScript. It separates concerns by handling the dialog state independently from the presentation layer, making it perfect for complex multi-step flows and truly framework-agnostic implementations.
+Dialogo is a zero-dependency, headless modal engine that provides powerful state management with navigation history. Unlike traditional modal libraries, Dialogo is completely unopinionated about UI and works with any framework or vanilla JavaScript. It focuses purely on state management, letting you handle rendering however you prefer.
 
 ## ✨ Features
 
 - **🔧 Truly Framework Agnostic**: Works with React, Vue, Svelte, vanilla JavaScript, or any framework - no type conflicts
 - **📱 Navigation History**: Built-in back/forward navigation with history management
 - **🎯 Singleton Pattern**: Global state management with automatic cleanup
-- **⚡ Zero Dependencies**: No external dependencies, truly lightweight and framework-agnostic
+- **⚡ Zero Dependencies**: No external dependencies, truly lightweight
 - **🔄 Reactive**: Real-time state updates with subscriber pattern
 - **🎨 Headless**: Completely unopinionated about UI - you control the presentation
-- **🔗 Flexible Content**: Supports React elements, Vue components, Svelte components, HTML strings, DOM elements, and any framework objects
+- **🔗 Flexible Content**: Accepts any content type - React elements, Vue components, HTML strings, DOM elements, or any framework objects
 
 ## 🚀 Quick Start
 
@@ -30,7 +30,9 @@ pnpm add dialogo
 
 ```tsx
 import { useEffect, useState } from 'react';
-import dialogo from 'dialogo';
+import Dialogo from 'dialogo';
+
+const dialogo = new Dialogo();
 
 function MyApp() {
   const [modalState, setModalState] = useState(null);
@@ -65,18 +67,29 @@ function MyApp() {
 #### With Vanilla JavaScript
 
 ```javascript
-import dialogo from 'dialogo';
+import Dialogo from 'dialogo';
+
+const dialogo = new Dialogo();
 
 // Subscribe to modal state changes
 const unsubscribe = dialogo.subscribe((state) => {
-  const modal = document.getElementById('modal');
+  const modalElement = document.getElementById('modal');
   const content = document.getElementById('modal-content');
 
   if (state.isOpen) {
-    modal.style.display = 'flex';
-    content.innerHTML = state.activeView?.element || '';
+    modalElement.style.display = 'flex';
+
+    // Handle different content types
+    if (typeof state.activeView?.element === 'string') {
+      content.innerHTML = state.activeView.element;
+    } else if (state.activeView?.element instanceof Element) {
+      content.innerHTML = '';
+      content.appendChild(state.activeView.element);
+    } else {
+      content.innerHTML = String(state.activeView?.element || '');
+    }
   } else {
-    modal.style.display = 'none';
+    modalElement.style.display = 'none';
   }
 });
 
@@ -94,7 +107,9 @@ document.getElementById('close-btn').addEventListener('click', () => {
 #### With DOM Elements
 
 ```javascript
-import dialogo from 'dialogo';
+import Dialogo from 'dialogo';
+
+const dialogo = new Dialogo();
 
 // Create a DOM element
 const contentElement = document.createElement('div');
@@ -112,7 +127,7 @@ document.getElementById('open-dom-btn').addEventListener('click', () => {
 
 #### `dialogo.open(content: ModalContent)`
 
-Opens a new modal with the provided content, resetting the navigation history. Accepts React elements, HTML strings, or any DOM elements.
+Opens a new modal with the provided content, resetting the navigation history. Accepts any content type - React elements, HTML strings, DOM elements, or any framework objects.
 
 ```tsx
 // With React
@@ -125,11 +140,14 @@ dialogo.open('<div>Welcome to the first step!</div>');
 const element = document.createElement('div');
 element.textContent = 'Welcome!';
 dialogo.open(element);
+
+// With any framework component
+dialogo.open(anyFrameworkComponent);
 ```
 
 #### `dialogo.navigate(content: ModalContent)`
 
-Navigate to a new view while preserving history. Accepts React elements, HTML strings, or any DOM elements.
+Navigate to a new view while preserving history. Accepts any content type - React elements, HTML strings, DOM elements, or any framework objects.
 
 ```tsx
 // With React
@@ -142,6 +160,9 @@ dialogo.navigate('<div>This is the second step!</div>');
 const element = document.createElement('div');
 element.textContent = 'Second step!';
 dialogo.navigate(element);
+
+// With any framework component
+dialogo.navigate(anyFrameworkComponent);
 ```
 
 #### `dialogo.back()`
@@ -187,12 +208,9 @@ unsubscribe();
 ```tsx
 /**
  * Framework-agnostic content type for modal content.
- * Supports:
- * - DOM Elements (vanilla JS)
- * - Strings (HTML content)
- * - Framework objects (React elements, Vue components, etc.)
+ * Accepts any content type - React elements, Vue components, HTML strings, DOM elements, or any framework objects.
  */
-type ModalContent = Element | string | object;
+type ModalContent<T = any> = T;
 
 type ModalState = {
   isOpen: boolean;
@@ -215,15 +233,15 @@ dialogo.navigate(<AnotherComponent />);
 ### Vue
 
 ```javascript
-dialogo.open(h('div', 'Hello Vue!'));
-dialogo.navigate(h(MyVueComponent));
+dialogo.open(vueComponent);
+dialogo.navigate(anotherVueComponent);
 ```
 
 ### Svelte
 
 ```javascript
-dialogo.open(new MySvelteComponent());
-dialogo.navigate(new AnotherSvelteComponent());
+dialogo.open(svelteComponent);
+dialogo.navigate(anotherSvelteComponent);
 ```
 
 ### Vanilla JavaScript
@@ -246,7 +264,9 @@ dialogo.navigate(anotherFrameworkComponent);
 ### Multi-step Form
 
 ```tsx
-import dialogo from 'dialogo';
+import Dialogo from 'dialogo';
+
+const dialogo = new Dialogo();
 
 function MultiStepForm() {
   const openForm = () => {
@@ -281,11 +301,13 @@ function MultiStepForm() {
 #### With Vanilla JavaScript
 
 ```javascript
-import dialogo from 'dialogo';
+import Dialogo from 'dialogo';
+
+const dialogo = new Dialogo();
 
 class ModalManager {
   constructor() {
-    this.modal = document.getElementById('modal');
+    this.modalElement = document.getElementById('modal');
     this.content = document.getElementById('modal-content');
     this.backBtn = document.getElementById('back-btn');
     this.closeBtn = document.getElementById('close-btn');
@@ -302,7 +324,7 @@ class ModalManager {
   subscribeToState() {
     dialogo.subscribe((state) => {
       if (state.isOpen) {
-        this.modal.style.display = 'flex';
+        this.modalElement.style.display = 'flex';
 
         // Handle different content types
         if (typeof state.activeView?.element === 'string') {
@@ -310,14 +332,14 @@ class ModalManager {
         } else if (state.activeView?.element instanceof Element) {
           this.content.innerHTML = '';
           this.content.appendChild(state.activeView.element);
-        } /* else {
-          // React element - would need React rendering
-          this.content.innerHTML = '';
-        } */
+        } else {
+          // Handle any other content type
+          this.content.innerHTML = String(state.activeView?.element || '');
+        }
 
         this.backBtn.style.display = state.hasHistory ? 'block' : 'none';
       } else {
-        this.modal.style.display = 'none';
+        this.modalElement.style.display = 'none';
       }
     });
   }
@@ -345,6 +367,8 @@ document.getElementById('start-form').addEventListener('click', () => {
 });
 ```
 
+````
+
 #### With Next.js
 
 ```tsx
@@ -352,7 +376,9 @@ document.getElementById('start-form').addEventListener('click', () => {
 'use client';
 
 import { useEffect, useState } from 'react';
-import dialogo from 'dialogo';
+import Dialogo from 'dialogo';
+
+const dialogo = new Dialogo();
 
 export default function Modal() {
   const [state, setState] = useState(null);
@@ -373,12 +399,14 @@ export default function Modal() {
     </div>
   );
 }
-```
+````
 
 #### With Tailwind CSS
 
 ```tsx
-import dialogo from 'dialogo';
+import Dialogo from 'dialogo';
+
+const dialogo = new Dialogo();
 
 function StyledModal() {
   const [state, setState] = useState(null);
