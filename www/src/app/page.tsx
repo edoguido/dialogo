@@ -1,32 +1,35 @@
 'use client';
 
-import dialogo from 'dialogo';
-import { motion, Variants } from 'motion/react';
+import Dialogo from 'dialogo';
+import { motion } from 'motion/react';
 import Modal from './modal';
 
-const MODAL_VARIANTS: Variants = {
-  initial: {
-    opacity: 'var(--opacity-from)',
-    scale: 'var(--scale-from)',
-    y: 'var(--y-from)',
-    filter: 'blur(6px)',
-    transition: { type: 'tween', ease: [1, 0, 0, 0], duration: 0.3 },
-  },
-  animate: {
-    opacity: 'var(--opacity-to)',
-    scale: 'var(--scale-to)',
-    y: 'var(--y-to)',
-    filter: 'blur(0px)',
-    transition: { type: 'tween', ease: [0.6, 0, 0, 0.8], duration: 0.3 },
-  },
-  exit: {
-    opacity: 'var(--opacity-from)',
-    scale: 'var(--scale-from)',
-    y: 'var(--y-from)',
-    filter: 'blur(6px)',
-    transition: { type: 'tween', ease: [0.3, 0, 0, 0.2], duration: 0.3 },
-  },
-};
+const dialogo = new Dialogo();
+export { dialogo };
+
+// const MODAL_VARIANTS: Variants = {
+//   initial: {
+//     opacity: 'var(--opacity-from)',
+//     scale: 'var(--scale-from)',
+//     y: 'var(--y-from)',
+//     filter: 'blur(6px)',
+//     transition: { type: 'tween', ease: [1, 0, 0, 0], duration: 0.3 },
+//   },
+//   animate: {
+//     opacity: 'var(--opacity-to)',
+//     scale: 'var(--scale-to)',
+//     y: 'var(--y-to)',
+//     filter: 'blur(0px)',
+//     transition: { type: 'tween', ease: [0.6, 0, 0, 0.8], duration: 0.3 },
+//   },
+//   exit: {
+//     opacity: 'var(--opacity-from)',
+//     scale: 'var(--scale-from)',
+//     y: 'var(--y-from)',
+//     filter: 'blur(6px)',
+//     transition: { type: 'tween', ease: [0.3, 0, 0, 0.2], duration: 0.3 },
+//   },
+// };
 
 export default function Home() {
   return (
@@ -39,7 +42,7 @@ export default function Home() {
       >
         Open modal
       </button>
-      <Modal viewTransitionMode="popLayout" modalVariants={MODAL_VARIANTS} />
+      <Modal viewTransitionMode="popLayout" /* modalVariants={MODAL_VARIANTS} */ />
     </div>
   );
 }

@@ -4,9 +4,10 @@ import { motion, AnimatePresence, Variants, AnimatePresenceProps } from 'motion/
 import useMeasure from 'react-use-measure';
 
 import React, { useEffect, useState } from 'react';
-import dialogo, { type ModalState } from 'dialogo';
+import { type ModalState } from 'dialogo';
 
 import './dialogo.css';
+import { dialogo } from './page';
 
 type ModalT = {
   modalVariants?: Variants;
@@ -100,9 +101,10 @@ const MODAL_VARIANTS: Variants = {
     opacity: 0,
     y: '2%',
     scale: 0.9,
-    rotateY: '20deg',
-    rotateX: '6deg',
-    transition: { type: 'tween', ease: [0.3, 0, 0, 0.6], duration: 0.3 },
+    rotateY: '-20deg',
+    rotateX: '-6deg',
+    filter: 'blur(6px)',
+    // transition: { type: 'tween', ease: [0.3, 0, 0, 0.6], duration: 0.3 },
   },
   animate: {
     opacity: 1,
@@ -110,9 +112,10 @@ const MODAL_VARIANTS: Variants = {
     scale: 1,
     rotateY: '0deg',
     rotateX: '0deg',
+    filter: 'blur(0px)',
     transition: {
       type: 'tween',
-      ease: [0.2, 0, 0, 0.6],
+      ease: [0.2, 0, 0, 0.8],
       duration: 0.3,
       // width: { type: 'tween', ease: [0.5, 0.1, 0.1, 0.9], duration: 0.4 },
       // height: { type: 'tween', ease: [0.5, 0.1, 0.1, 0.9], duration: 0.4 },
@@ -122,8 +125,9 @@ const MODAL_VARIANTS: Variants = {
     opacity: 0,
     y: '2%',
     scale: 0.9,
-    rotateY: '20deg',
-    rotateX: '6deg',
+    rotateY: '26deg',
+    rotateX: '12deg',
+    filter: 'blur(12px)',
     transition: { type: 'tween', ease: [0.3, 0, 0, 0.6], duration: 0.3 },
   },
 };
