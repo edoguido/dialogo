@@ -3,19 +3,15 @@ import type { ModalContent, ActiveView, ModalState, Subscriber, ModalAPI } from 
 // Re-export types for framework-specific usage
 export type { ModalContent, ActiveView, ModalState, Subscriber, ModalAPI };
 
-class Observer {
-  private static instance: Observer;
+class Dialogo {
   private subscribers: Set<Subscriber> = new Set();
   private isOpen: boolean = false;
   private viewHistory: Array<ActiveView> = [];
 
-  private constructor() { }
-
-  public static getInstance(): Observer {
-    if (!Observer.instance) {
-      Observer.instance = new Observer();
-    }
-    return Observer.instance;
+  public constructor() {
+    // if (!Dialogo.instance) {
+    //   Dialogo.instance = new Dialogo();
+    // }
   }
 
   public subscribe = (callback: Subscriber): (() => void) => {
@@ -74,5 +70,4 @@ class Observer {
   };
 }
 
-const dialogo = Observer.getInstance();
-export default dialogo;
+export default Dialogo;
