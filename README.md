@@ -54,7 +54,7 @@ function MyApp() {
       {modalState?.isOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
-            {modalState.activeView?.element}
+            {modalState.activeView.element}
             <button onClick={() => dialogo.close()}>Close</button>
           </div>
         </div>
@@ -80,13 +80,13 @@ const unsubscribe = dialogo.subscribe((state) => {
     modalElement.style.display = 'flex';
 
     // Handle different content types
-    if (typeof state.activeView?.element === 'string') {
+    if (typeof state.activeView.element === 'string') {
       content.innerHTML = state.activeView.element;
-    } else if (state.activeView?.element instanceof Element) {
+    } else if (state.activeView.element instanceof Element) {
       content.innerHTML = '';
       content.appendChild(state.activeView.element);
     } else {
-      content.innerHTML = String(state.activeView?.element || '');
+      content.innerHTML = String(state.activeView.element || '');
     }
   } else {
     modalElement.style.display = 'none';
@@ -327,14 +327,14 @@ class ModalManager {
         this.modalElement.style.display = 'flex';
 
         // Handle different content types
-        if (typeof state.activeView?.element === 'string') {
+        if (typeof state.activeView.element === 'string') {
           this.content.innerHTML = state.activeView.element;
-        } else if (state.activeView?.element instanceof Element) {
+        } else if (state.activeView.element instanceof Element) {
           this.content.innerHTML = '';
           this.content.appendChild(state.activeView.element);
         } else {
           // Handle any other content type
-          this.content.innerHTML = String(state.activeView?.element || '');
+          this.content.innerHTML = String(state.activeView.element || '');
         }
 
         this.backBtn.style.display = state.hasHistory ? 'block' : 'none';
@@ -392,7 +392,7 @@ export default function Modal() {
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
       <div className="bg-white p-6 rounded-lg">
-        {state.activeView?.element}
+        {state.activeView.element}
         {state.hasHistory && <button onClick={() => dialogo.back()}>Back</button>}
         <button onClick={() => dialogo.close()}>Close</button>
       </div>
@@ -421,7 +421,7 @@ function StyledModal() {
     <div className="fixed inset-0 z-50 overflow-y-auto">
       <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
         <div className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
-          <div className="mt-3 text-center sm:mt-0 sm:text-left">{state.activeView?.element}</div>
+          <div className="mt-3 text-center sm:mt-0 sm:text-left">{state.activeView.element}</div>
           <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
             <button
               type="button"

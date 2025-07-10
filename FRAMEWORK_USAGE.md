@@ -88,13 +88,13 @@ Since the library is framework-agnostic, you handle content rendering based on y
 
 ```typescript
 // React - render directly
-{state.activeView?.element}
+{state.activeView.element}
 
 // Vue - use component
-<component :is="state.activeView?.element" />
+<component :is="state.activeView.element" />
 
 // Svelte - use @html or component
-{@html state.activeView?.element}
+{@html state.activeView.element}
 
 // Vanilla JS - handle different types
 if (typeof content === 'string') {
@@ -124,7 +124,7 @@ const ModalProvider: React.FC = () => {
 
   if (!state?.isOpen) return null;
 
-  return <div className="modal">{state.activeView?.element}</div>;
+  return <div className="modal">{state.activeView.element}</div>;
 };
 ```
 
@@ -133,7 +133,7 @@ const ModalProvider: React.FC = () => {
 ```vue
 <template>
   <div v-if="state.isOpen" class="modal">
-    <component :is="state.activeView?.element" />
+    <component :is="state.activeView.element" />
   </div>
 </template>
 
@@ -183,7 +183,7 @@ onUnmounted(() => {
 
 {#if state?.isOpen}
   <div class="modal">
-    {#if state.activeView?.element}
+    {#if state.activeView.element}
       {@html state.activeView.element}
     {/if}
   </div>
