@@ -1,7 +1,7 @@
 // Test setup file for Vitest
 // This file runs before each test file
 
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/vitest';
 
 // Mock DOM APIs that might not be available in jsdom
 if (typeof window !== 'undefined') {

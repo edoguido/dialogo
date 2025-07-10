@@ -1,21 +1,22 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
-import modal from '../../src/index';
+import '@testing-library/jest-dom';
+import dialogo from 'dialogo';
 
 describe('Dialogo Modal Engine', () => {
   let mockSubscriber: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     // Reset modal state before each test
-    modal.close();
+    dialogo.close();
     mockSubscriber = vi.fn();
   });
 
   describe('Framework Agnostic Content Support', () => {
     it('should accept DOM elements', () => {
       const content = document.createElement('div');
-      const unsubscribe = modal.subscribe(mockSubscriber);
+      const unsubscribe = dialogo.subscribe(mockSubscriber);
 
-      modal.open(content);
+      dialogo.open(content);
 
       expect(mockSubscriber).toHaveBeenCalledWith({
         isOpen: true,
@@ -28,9 +29,9 @@ describe('Dialogo Modal Engine', () => {
 
     it('should accept string content', () => {
       const content = '<div>Hello World</div>';
-      const unsubscribe = modal.subscribe(mockSubscriber);
+      const unsubscribe = dialogo.subscribe(mockSubscriber);
 
-      modal.open(content);
+      dialogo.open(content);
 
       expect(mockSubscriber).toHaveBeenCalledWith({
         isOpen: true,
@@ -43,9 +44,9 @@ describe('Dialogo Modal Engine', () => {
 
     it('should accept framework objects', () => {
       const content = { type: 'div', props: { children: 'Framework Component' } };
-      const unsubscribe = modal.subscribe(mockSubscriber);
+      const unsubscribe = dialogo.subscribe(mockSubscriber);
 
-      modal.open(content);
+      dialogo.open(content);
 
       expect(mockSubscriber).toHaveBeenCalledWith({
         isOpen: true,
@@ -59,7 +60,7 @@ describe('Dialogo Modal Engine', () => {
 
   describe('Initial State', () => {
     it('should start with modal closed', () => {
-      const unsubscribe = modal.subscribe(mockSubscriber);
+      const unsubscribe = dialogo.subscribe(mockSubscriber);
 
       expect(mockSubscriber).toHaveBeenCalledWith({
         isOpen: false,
@@ -74,9 +75,9 @@ describe('Dialogo Modal Engine', () => {
   describe('Opening Modal', () => {
     it('should open modal with content', () => {
       const content = document.createElement('div');
-      const unsubscribe = modal.subscribe(mockSubscriber);
+      const unsubscribe = dialogo.subscribe(mockSubscriber);
 
-      modal.open(content);
+      dialogo.open(content);
 
       expect(mockSubscriber).toHaveBeenCalledWith({
         isOpen: true,
@@ -89,9 +90,9 @@ describe('Dialogo Modal Engine', () => {
 
     it('should open modal with string content', () => {
       const content = 'Hello World';
-      const unsubscribe = modal.subscribe(mockSubscriber);
+      const unsubscribe = dialogo.subscribe(mockSubscriber);
 
-      modal.open(content);
+      dialogo.open(content);
 
       expect(mockSubscriber).toHaveBeenCalledWith({
         isOpen: true,
@@ -105,18 +106,18 @@ describe('Dialogo Modal Engine', () => {
     it('should reset history when opening new modal', () => {
       const content1 = document.createElement('div');
       const content2 = document.createElement('span');
-      const unsubscribe = modal.subscribe(mockSubscriber);
+      const unsubscribe = dialogo.subscribe(mockSubscriber);
 
       // Open first modal and navigate
-      modal.open(content1);
-      modal.navigate(content2);
+      dialogo.open(content1);
+      dialogo.navigate(content2);
 
       // Clear mock calls
       mockSubscriber.mockClear();
 
       // Open new modal
       const content3 = document.createElement('p');
-      modal.open(content3);
+      dialogo.open(content3);
 
       expect(mockSubscriber).toHaveBeenCalledWith({
         isOpen: true,
@@ -132,12 +133,12 @@ describe('Dialogo Modal Engine', () => {
     it('should navigate to new content', () => {
       const content1 = document.createElement('div');
       const content2 = document.createElement('span');
-      const unsubscribe = modal.subscribe(mockSubscriber);
+      const unsubscribe = dialogo.subscribe(mockSubscriber);
 
-      modal.open(content1);
+      dialogo.open(content1);
       mockSubscriber.mockClear();
 
-      modal.navigate(content2);
+      dialogo.navigate(content2);
 
       expect(mockSubscriber).toHaveBeenCalledWith({
         isOpen: true,
@@ -152,11 +153,11 @@ describe('Dialogo Modal Engine', () => {
       const content1 = document.createElement('div');
       const content2 = document.createElement('span');
       const content3 = document.createElement('p');
-      const unsubscribe = modal.subscribe(mockSubscriber);
+      const unsubscribe = dialogo.subscribe(mockSubscriber);
 
-      modal.open(content1);
-      modal.navigate(content2);
-      modal.navigate(content3);
+      dialogo.open(content1);
+      dialogo.navigate(content2);
+      dialogo.navigate(content3);
 
       expect(mockSubscriber).toHaveBeenCalledWith({
         isOpen: true,
@@ -172,13 +173,13 @@ describe('Dialogo Modal Engine', () => {
     it('should go back to previous view', () => {
       const content1 = document.createElement('div');
       const content2 = document.createElement('span');
-      const unsubscribe = modal.subscribe(mockSubscriber);
+      const unsubscribe = dialogo.subscribe(mockSubscriber);
 
-      modal.open(content1);
-      modal.navigate(content2);
+      dialogo.open(content1);
+      dialogo.navigate(content2);
       mockSubscriber.mockClear();
 
-      modal.back();
+      dialogo.back();
 
       expect(mockSubscriber).toHaveBeenCalledWith({
         isOpen: true,
@@ -191,12 +192,12 @@ describe('Dialogo Modal Engine', () => {
 
     it('should close modal when going back from first view', () => {
       const content = document.createElement('div');
-      const unsubscribe = modal.subscribe(mockSubscriber);
+      const unsubscribe = dialogo.subscribe(mockSubscriber);
 
-      modal.open(content);
+      dialogo.open(content);
       mockSubscriber.mockClear();
 
-      modal.back();
+      dialogo.back();
 
       expect(mockSubscriber).toHaveBeenCalledWith({
         isOpen: false,
@@ -209,12 +210,12 @@ describe('Dialogo Modal Engine', () => {
 
     it('should not go back when no history exists', () => {
       const content = document.createElement('div');
-      const unsubscribe = modal.subscribe(mockSubscriber);
+      const unsubscribe = dialogo.subscribe(mockSubscriber);
 
-      modal.open(content);
+      dialogo.open(content);
       mockSubscriber.mockClear();
 
-      modal.back();
+      dialogo.back();
 
       expect(mockSubscriber).toHaveBeenCalledWith({
         isOpen: false,
@@ -230,13 +231,13 @@ describe('Dialogo Modal Engine', () => {
     it('should close modal and clear history', () => {
       const content1 = document.createElement('div');
       const content2 = document.createElement('span');
-      const unsubscribe = modal.subscribe(mockSubscriber);
+      const unsubscribe = dialogo.subscribe(mockSubscriber);
 
-      modal.open(content1);
-      modal.navigate(content2);
+      dialogo.open(content1);
+      dialogo.navigate(content2);
       mockSubscriber.mockClear();
 
-      modal.close();
+      dialogo.close();
 
       expect(mockSubscriber).toHaveBeenCalledWith({
         isOpen: false,
@@ -252,13 +253,13 @@ describe('Dialogo Modal Engine', () => {
     it('should hide modal without clearing history', () => {
       const content1 = document.createElement('div');
       const content2 = document.createElement('span');
-      const unsubscribe = modal.subscribe(mockSubscriber);
+      const unsubscribe = dialogo.subscribe(mockSubscriber);
 
-      modal.open(content1);
-      modal.navigate(content2);
+      dialogo.open(content1);
+      dialogo.navigate(content2);
       mockSubscriber.mockClear();
 
-      modal.hide();
+      dialogo.hide();
 
       expect(mockSubscriber).toHaveBeenCalledWith({
         isOpen: false,
@@ -271,13 +272,13 @@ describe('Dialogo Modal Engine', () => {
 
     it('should show hidden modal', () => {
       const content = document.createElement('div');
-      const unsubscribe = modal.subscribe(mockSubscriber);
+      const unsubscribe = dialogo.subscribe(mockSubscriber);
 
-      modal.open(content);
-      modal.hide();
+      dialogo.open(content);
+      dialogo.hide();
       mockSubscriber.mockClear();
 
-      modal.show();
+      dialogo.show();
 
       expect(mockSubscriber).toHaveBeenCalledWith({
         isOpen: true,
@@ -295,10 +296,10 @@ describe('Dialogo Modal Engine', () => {
       const subscriber2 = vi.fn();
       const content = document.createElement('div');
 
-      const unsubscribe1 = modal.subscribe(subscriber1);
-      const unsubscribe2 = modal.subscribe(subscriber2);
+      const unsubscribe1 = dialogo.subscribe(subscriber1);
+      const unsubscribe2 = dialogo.subscribe(subscriber2);
 
-      modal.open(content);
+      dialogo.open(content);
 
       expect(subscriber1).toHaveBeenCalled();
       expect(subscriber2).toHaveBeenCalled();
@@ -311,10 +312,10 @@ describe('Dialogo Modal Engine', () => {
       const subscriber = vi.fn();
       const content = document.createElement('div');
 
-      const unsubscribe = modal.subscribe(subscriber);
+      const unsubscribe = dialogo.subscribe(subscriber);
       unsubscribe();
 
-      modal.open(content);
+      dialogo.open(content);
 
       // Should not be called after unsubscribing
       expect(subscriber).toHaveBeenCalledTimes(1); // Only the initial call
@@ -325,10 +326,10 @@ describe('Dialogo Modal Engine', () => {
     it('should maintain consistent state across operations', () => {
       const content1 = document.createElement('div');
       const content2 = document.createElement('span');
-      const unsubscribe = modal.subscribe(mockSubscriber);
+      const unsubscribe = dialogo.subscribe(mockSubscriber);
 
       // Open modal
-      modal.open(content1);
+      dialogo.open(content1);
       expect(mockSubscriber).toHaveBeenLastCalledWith({
         isOpen: true,
         activeView: { element: content1, id: 0 },
@@ -336,7 +337,7 @@ describe('Dialogo Modal Engine', () => {
       });
 
       // Navigate
-      modal.navigate(content2);
+      dialogo.navigate(content2);
       expect(mockSubscriber).toHaveBeenLastCalledWith({
         isOpen: true,
         activeView: { element: content2, id: 1 },
@@ -344,7 +345,7 @@ describe('Dialogo Modal Engine', () => {
       });
 
       // Go back
-      modal.back();
+      dialogo.back();
       expect(mockSubscriber).toHaveBeenLastCalledWith({
         isOpen: true,
         activeView: { element: content1, id: 0 },
@@ -352,7 +353,7 @@ describe('Dialogo Modal Engine', () => {
       });
 
       // Close
-      modal.close();
+      dialogo.close();
       expect(mockSubscriber).toHaveBeenLastCalledWith({
         isOpen: false,
         activeView: null,

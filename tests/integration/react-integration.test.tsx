@@ -1,40 +1,41 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
-import modal from '../../src/index';
+import dialogo from 'dialogo';
 import type { ModalState } from '../../src/index';
+import '@testing-library/jest-dom';
 
 // Mock React component for testing
 const TestModal = () => {
   const [state, setState] = React.useState<ModalState>({
     isOpen: false,
-    activeView: null,
+    activeView: { id: null, element: null },
     hasHistory: false,
   });
 
   React.useEffect(() => {
-    const unsubscribe = modal.subscribe(setState);
+    const unsubscribe = dialogo.subscribe(setState);
     return unsubscribe;
   }, []);
 
   const handleOpen = () => {
     const content = document.createElement('div');
     content.innerHTML = '<h1>Test Modal</h1>';
-    modal.open(content);
+    dialogo.open(content);
   };
 
   const handleClose = () => {
-    modal.close();
+    dialogo.close();
   };
 
   const handleNavigate = () => {
     const content = document.createElement('div');
     content.innerHTML = '<h2>Step 2</h2>';
-    modal.navigate(content);
+    dialogo.navigate(content);
   };
 
   const handleBack = () => {
-    modal.back();
+    dialogo.back();
   };
 
   return (
@@ -81,7 +82,7 @@ const TestModal = () => {
 
 describe('React Integration Tests', () => {
   beforeEach(() => {
-    modal.close();
+    dialogo.close();
   });
 
   it('should render modal when opened', () => {
