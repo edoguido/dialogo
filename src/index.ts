@@ -1,36 +1,13 @@
-/**
- * Framework-agnostic content type for modal content.
- * Supports:
- * - DOM Elements (vanilla JS)
- * - Strings (HTML content)
- * - Framework objects (React elements, Vue components, etc.)
- */
-type ModalContent = Element | string | object
+import type { ModalContent, ActiveView, ModalState, Subscriber, ModalAPI } from './types';
 
-/**
- * Modal state interface that works across all frameworks.
- * The element property can contain any content.
- */
-export type ModalState = {
-  isOpen: boolean;
-  activeView: { element: ModalContent; id: number } | null;
-  hasHistory: boolean;
-};
-
-
-type Subscriber = (state: ModalState) => void;
+// Re-export types for framework-specific usage
+export type { ModalContent, ActiveView, ModalState, Subscriber, ModalAPI };
 
 class Observer {
   private static instance: Observer;
-
-  // the entity that is receiving updates
-  // not sure but should only be out Dialogo component for now
   private subscribers: Set<Subscriber> = new Set();
-
-  // state for the modal rendering
   private isOpen: boolean = false;
-  private viewHistory: Array<ModalState['activeView']> = [];
-  // activeView is derived from viewHistory
+  private viewHistory: Array<ActiveView> = [];
 
   private constructor() { }
 
@@ -56,26 +33,16 @@ class Observer {
     this.subscribers.forEach((subscriber) => subscriber(state));
   };
 
-  private getActiveView = (): ModalState['activeView'] => {
-    return this.viewHistory[this.viewHistory.length - 1] || null;
+  private getActiveView = (): ActiveView => {
+    return this.viewHistory[this.viewHistory.length - 1] || { id: null, element: null };
   };
 
-  /**
-   * Opens a modal with the specified content.
-   * @param content - Framework-agnostic content (DOM Element, string, React element, Vue component, etc.)
-   */
   public open = (content: ModalContent): void => {
-    // reset the history with new content
-    // -- we probably want to instead open another modal in this case
     this.viewHistory = [{ id: this.viewHistory.length, element: content }];
     this.isOpen = true;
     this.notify();
   };
 
-  /**
-   * Navigates to a new step in the modal with the specified content.
-   * @param content - Framework-agnostic content (DOM Element, string, React element, Vue component, etc.)
-   */
   public navigate = (content: ModalContent): void => {
     this.viewHistory.push({ id: this.viewHistory.length, element: content });
     this.notify();
@@ -107,6 +74,5 @@ class Observer {
   };
 }
 
-// don't like this -- probably can be improved
-const modal = Observer.getInstance();
-export default modal;
+const dialogo = Observer.getInstance();
+export default dialogo;
