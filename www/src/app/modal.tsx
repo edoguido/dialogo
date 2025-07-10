@@ -4,9 +4,9 @@ import { motion, AnimatePresence, Variants, AnimatePresenceProps } from 'motion/
 import useMeasure from 'react-use-measure';
 
 import React, { useEffect, useState } from 'react';
-import modal, { type ModalState } from 'dialogo';
+import dialogo, { type ModalState } from 'dialogo';
 
-import './style.css';
+import './dialogo.css';
 
 type ModalT = {
   modalVariants?: Variants;
@@ -24,7 +24,7 @@ function Modal(props: ModalT) {
   const { modalVariants = MODAL_VARIANTS, viewVariants = VIEW_VARIANTS, viewTransitionMode = 'popLayout' } = props;
 
   const { isOpen, activeView } = useModal();
-  const [elementRef, bounds] = useMeasure({ offsetSize: true });
+  const [boundsRef, bounds] = useMeasure({ offsetSize: true });
 
   const modalVariantsAnimateType = typeof modalVariants.animate;
   const modalVariantsAnimateResolver =
@@ -56,7 +56,7 @@ function Modal(props: ModalT) {
           <motion.div
             data-dialogo-overlay=""
             onClick={() => {
-              modal.close();
+              dialogo.close();
             }}
             variants={OVERLAY_VARIANTS}
           />
@@ -69,7 +69,7 @@ function Modal(props: ModalT) {
               exit: { ...modalVariants.exit },
             }}
           >
-            <motion.div data-dialogo-view ref={elementRef} variants={viewVariants}>
+            <motion.div data-dialogo-view ref={boundsRef} variants={viewVariants}>
               <AnimatePresence initial={false} mode={viewTransitionMode}>
                 <motion.div
                   key={activeView.id}
@@ -102,7 +102,7 @@ const MODAL_VARIANTS: Variants = {
     scale: 0.9,
     rotateY: '20deg',
     rotateX: '6deg',
-    transition: { type: 'ease', ease: [0.3, 0, 0, 0.6], duration: 0.3 },
+    transition: { type: 'tween', ease: [0.3, 0, 0, 0.6], duration: 0.3 },
   },
   animate: {
     opacity: 1,
@@ -111,11 +111,11 @@ const MODAL_VARIANTS: Variants = {
     rotateY: '0deg',
     rotateX: '0deg',
     transition: {
-      type: 'ease',
+      type: 'tween',
       ease: [0.2, 0, 0, 0.6],
       duration: 0.3,
-      width: { type: 'ease', ease: [0.5, 0.1, 0.1, 0.9], duration: 0.4 },
-      height: { type: 'ease', ease: [0.5, 0.1, 0.1, 0.9], duration: 0.4 },
+      // width: { type: 'tween', ease: [0.5, 0.1, 0.1, 0.9], duration: 0.4 },
+      // height: { type: 'tween', ease: [0.5, 0.1, 0.1, 0.9], duration: 0.4 },
     },
   },
   exit: {
@@ -124,7 +124,7 @@ const MODAL_VARIANTS: Variants = {
     scale: 0.9,
     rotateY: '20deg',
     rotateX: '6deg',
-    transition: { type: 'ease', ease: [0.3, 0, 0, 0.6], duration: 0.3 },
+    transition: { type: 'tween', ease: [0.3, 0, 0, 0.6], duration: 0.3 },
   },
 };
 
@@ -135,30 +135,30 @@ const VIEW_VARIANTS: Variants = {
 };
 
 const CONTENT_VARIANTS: Variants = {
-  initial: (forward) => ({
+  initial: () => ({
     opacity: 0,
     // x: forward ? '20%' : '-20%',
-    transition: { type: 'ease', ease: [0.8, 0, 0, 0.8], duration: 0.4 },
+    transition: { type: 'tween', ease: [0.8, 0, 0, 0.8], duration: 0.4 },
   }),
   animate: {
     opacity: 1,
     // x: '-0%',
     transition: {
-      type: 'ease',
+      type: 'tween',
       ease: [0.8, 0, 0, 0.8],
       duration: 0.4,
     },
   },
-  exit: (forward) => ({
+  exit: () => ({
     opacity: 0,
     // x: forward ? '-20%' : '20%',
-    transition: { type: 'ease', ease: [0.8, 0, 0, 0.8], duration: 0.4 },
+    transition: { type: 'tween', ease: [0.8, 0, 0, 0.8], duration: 0.4 },
   }),
 };
 
 const DIALOGO_INITIAL_STATE: ModalState = {
   isOpen: false,
-  activeView: null,
+  activeView: { id: null, element: null },
   hasHistory: false,
 };
 
@@ -166,16 +166,16 @@ export const useModal = () => {
   const [state, setState] = useState<ModalState>(DIALOGO_INITIAL_STATE);
 
   useEffect(() => {
-    const unsubscribe = modal.subscribe(setState);
+    const unsubscribe = dialogo.subscribe(setState);
     return unsubscribe;
   }, []);
 
   return state;
 };
 
-const closeOnEscapeKey = (e) => {
+const closeOnEscapeKey = (e: KeyboardEvent) => {
   if (e.key.toLowerCase() === 'escape') {
-    modal.close();
+    dialogo.close();
   }
 };
 

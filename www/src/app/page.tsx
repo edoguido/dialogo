@@ -1,30 +1,30 @@
 'use client';
 
-import modal from 'dialogo';
+import dialogo from 'dialogo';
 import { motion, Variants } from 'motion/react';
 import Modal from './modal';
 
 const MODAL_VARIANTS: Variants = {
   initial: {
     opacity: 'var(--opacity-from)',
-    // scale: 'var(--scale-from)',
+    scale: 'var(--scale-from)',
     y: 'var(--y-from)',
-    // filter: 'blur(6px)',
-    transition: { type: 'spring', stiffness: 360, damping: 36, mass: 1 },
+    filter: 'blur(6px)',
+    transition: { type: 'tween', ease: [1, 0, 0, 0], duration: 0.3 },
   },
   animate: {
     opacity: 'var(--opacity-to)',
     scale: 'var(--scale-to)',
     y: 'var(--y-to)',
     filter: 'blur(0px)',
-    transition: { type: 'spring', stiffness: 360, damping: 36, mass: 1 },
+    transition: { type: 'tween', ease: [0.6, 0, 0, 0.8], duration: 0.3 },
   },
   exit: {
     opacity: 'var(--opacity-from)',
     scale: 'var(--scale-from)',
     y: 'var(--y-from)',
     filter: 'blur(6px)',
-    transition: { type: 'spring', stiffness: 360, damping: 36, mass: 1 },
+    transition: { type: 'tween', ease: [0.3, 0, 0, 0.2], duration: 0.3 },
   },
 };
 
@@ -34,7 +34,7 @@ export default function Home() {
       <button
         className="block bg-black text-white px-2 py-0.5 cursor-pointer rounded-lg"
         onClick={() => {
-          modal.open(<FirstModalView />);
+          dialogo.open(<FirstModalView />);
         }}
       >
         Open modal
@@ -51,7 +51,7 @@ const FirstModalView = () => {
       <button
         className="bg-black text-white px-2 py-0.5 cursor-pointer rounded-lg"
         onClick={() => {
-          modal.navigate(<SecondModalView />);
+          dialogo.navigate(<SecondModalView />);
         }}
       >
         Go to second
@@ -68,7 +68,7 @@ const SecondModalView = () => {
       <button
         className="bg-white text-black px-2 py-0.5 cursor-pointer rounded-lg"
         onClick={() => {
-          modal.back();
+          dialogo.back();
         }}
       >
         Go back
@@ -76,7 +76,7 @@ const SecondModalView = () => {
       <button
         className="bg-black text-white px-2 py-0.5 cursor-pointer rounded-lg"
         onClick={() => {
-          modal.navigate(<ThirdModalView />);
+          dialogo.navigate(<ThirdModalView />);
         }}
       >
         Go to third
@@ -93,7 +93,7 @@ const ThirdModalView = () => {
       <button
         className="bg-black text-white px-2 py-0.5 cursor-pointer rounded-lg"
         onClick={() => {
-          modal.back();
+          dialogo.back();
         }}
       >
         Go back
