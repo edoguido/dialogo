@@ -367,8 +367,6 @@ document.getElementById('start-form').addEventListener('click', () => {
 });
 ```
 
-````
-
 #### With Next.js
 
 ```tsx
@@ -399,7 +397,7 @@ export default function Modal() {
     </div>
   );
 }
-````
+```
 
 #### With Tailwind CSS
 
@@ -458,7 +456,7 @@ MIT © [Edoardo Guido](https://edoardoguido.com/)
 ## 🆘 Support
 
 - 📧 Email: ciao@edoardoguido.com
-- 🐛 Issues: [GitHub Issues](https://github.com/your-username/dialogo/issues)
+- 🐛 Issues: [GitHub Issues](https://github.com/edoguido/dialogo/issues)
 - 📖 Documentation: [Website](https://edoardoguido.com/)
 
 ---
