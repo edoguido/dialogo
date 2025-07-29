@@ -451,14 +451,14 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ## 📄 License
 
-MIT © [Edoardo Guido](https://edoardoguido.com/)
+MIT © [Edoardo Guido](https://edoguido.com/)
 
 ## 🆘 Support
 
 - 📧 Email: ciao@edoardoguido.com
 - 🐛 Issues: [GitHub Issues](https://github.com/edoguido/dialogo/issues)
-- 📖 Documentation: [Website](https://edoardoguido.com/)
+- 📖 Documentation: [Website](https://edoguido.com/)
 
 ---
 
-**Made with ❤️ by [Edoardo Guido](https://edoardoguido.com/)**
+**Made with ❤️ by [Edoardo Guido](https://edoguido.com/)**
