@@ -1,8 +1,10 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
-import dialogo from 'dialogo';
+import Dialogo from '@edoguido/dialogo';
 import type { ModalState } from '../../src/index';
+
+const dialogo = new Dialogo();
 import '@testing-library/jest-dom';
 
 // Mock React component for testing

@@ -1,7 +1,7 @@
 {
-  "name": "dialogo",
+  "name": "@edoguido/dialogo",
   "version": "0.1.0",
-  "description": "An unopinionated modal engine",
+  "description": "An unopinionated, framework-agnostic modal state engine",
   "exports": {
     ".": {
       "import": {
@@ -24,6 +24,7 @@
     "dev": "bunchee --watch",
     "build": "bunchee",
     "type-check": "tsc --noEmit",
+    "prepublishOnly": "pnpm type-check && pnpm test:unit:run && pnpm build",
     "dev:website": "turbo run dev --filter=dialogo-website...",
     "format": "prettier --write .",
     "test": "playwright test",
@@ -32,14 +33,24 @@
     "test:unit:coverage": "vitest run --coverage"
   },
   "keywords": [
-    "react",
     "modal",
     "dialog",
+    "framework-agnostic",
+    "headless",
+    "state-management",
+    "vanilla",
     "multi-step"
   ],
   "author": "Edoardo Guido <ciao@edoardoguido.com>",
   "license": "MIT",
-  "homepage": "https://edoardoguido.com/",
+  "homepage": "https://github.com/edoguido/dialogo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/edoguido/dialogo.git"
+  },
+  "engines": {
+    "node": ">=16"
+  },
   "devDependencies": {
     "@eslint/eslintrc": "latest",
     "@playwright/test": "^1.49.1",
@@ -58,7 +69,6 @@
     "@testing-library/react": "^16.1.0",
     "@testing-library/jest-dom": "^6.6.3"
   },
-  "peerDependencies": {},
   "packageManager": "pnpm@8.12.1",
   "dependencies": {}
 }

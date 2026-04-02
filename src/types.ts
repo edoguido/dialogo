@@ -10,7 +10,7 @@ export type ActiveView = {
 // Modal state interface
 export type ModalState = {
   isOpen: boolean;
-  activeView: ActiveView;
+  activeView: ActiveView | null;
   hasHistory: boolean;
 };
 

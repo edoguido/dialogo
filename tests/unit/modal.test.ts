@@ -1,6 +1,8 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import '@testing-library/jest-dom';
-import dialogo from 'dialogo';
+import Dialogo from '@edoguido/dialogo';
+
+const dialogo = new Dialogo();
 
 describe('Dialogo Modal Engine', () => {
   let mockSubscriber: ReturnType<typeof vi.fn>;

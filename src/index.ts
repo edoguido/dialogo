@@ -8,14 +8,15 @@ class Dialogo {
   private isOpen: boolean = false;
   private viewHistory: Array<ActiveView> = [];
 
-  public constructor() {
-    // if (!Dialogo.instance) {
-    //   Dialogo.instance = new Dialogo();
-    // }
-  }
+  public constructor() {}
 
   public subscribe = (callback: Subscriber): (() => void) => {
     this.subscribers.add(callback);
+    callback({
+      isOpen: this.isOpen,
+      activeView: this.getActiveView(),
+      hasHistory: this.viewHistory.length > 1,
+    });
     return () => this.subscribers.delete(callback);
   };
 
@@ -29,12 +30,12 @@ class Dialogo {
     this.subscribers.forEach((subscriber) => subscriber(state));
   };
 
-  private getActiveView = (): ActiveView => {
-    return this.viewHistory[this.viewHistory.length - 1] || { id: null, element: null };
+  private getActiveView = (): ActiveView | null => {
+    return this.viewHistory[this.viewHistory.length - 1] ?? null;
   };
 
   public open = (content: ModalContent): void => {
-    this.viewHistory = [{ id: this.viewHistory.length, element: content }];
+    this.viewHistory = [{ id: 0, element: content }];
     this.isOpen = true;
     this.notify();
   };
