@@ -1,27 +1,27 @@
-# @dialogo/core
+# @modalogue/core
 
 Headless state management for multi-step dialogs. Framework-agnostic with zero dependencies.
 
 ## Installation
 
 ```bash
-npm install @dialogo/core
+npm install @modalogue/core
 # or
-pnpm add @dialogo/core
+pnpm add @modalogue/core
 # or
-yarn add @dialogo/core
+yarn add @modalogue/core
 ```
 
 ## Usage
 
 ```typescript
-import Dialogo from '@dialogo/core';
+import Modalogue from '@modalogue/core';
 
 // Create a new instance
-const dialogo = new Dialogo();
+const modalogue = new Modalogue();
 
 // Subscribe to state changes
-const unsubscribe = dialogo.subscribe((state) => {
+const unsubscribe = modalogue.subscribe((state) => {
   console.log('Modal state:', state);
   // state.isOpen - boolean
   // state.activeView - { id, element }
@@ -29,22 +29,22 @@ const unsubscribe = dialogo.subscribe((state) => {
 });
 
 // Open a modal with content
-dialogo.open(<YourContent />);
+modalogue.open(<YourContent />);
 
 // Navigate to a new view (adds to history)
-dialogo.navigate(<NextView />);
+modalogue.navigate(<NextView />);
 
 // Go back to previous view
-dialogo.back();
+modalogue.back();
 
 // Close modal and clear history
-dialogo.close();
+modalogue.close();
 
 // Hide modal without clearing history
-dialogo.hide();
+modalogue.hide();
 
 // Show hidden modal
-dialogo.show();
+modalogue.show();
 
 // Clean up subscription
 unsubscribe();
@@ -52,42 +52,42 @@ unsubscribe();
 
 ## API
 
-### `new Dialogo()`
+### `new Modalogue()`
 
-Creates a new Dialogo instance.
+Creates a new Modalogue instance.
 
-### `dialogo.subscribe(callback): () => void`
+### `modalogue.subscribe(callback): () => void`
 
 Subscribe to state changes. Returns an unsubscribe function.
 
-### `dialogo.open(content): void`
+### `modalogue.open(content): void`
 
 Opens the modal with the given content. Clears any existing history.
 
-### `dialogo.navigate(content): void`
+### `modalogue.navigate(content): void`
 
 Navigates to new content, preserving history for back navigation.
 
-### `dialogo.back(): void`
+### `modalogue.back(): void`
 
 Goes back to the previous view. If on the first view, closes the modal.
 
-### `dialogo.close(): void`
+### `modalogue.close(): void`
 
 Closes the modal and clears all history.
 
-### `dialogo.hide(): void`
+### `modalogue.hide(): void`
 
 Hides the modal without clearing history (can be shown again).
 
-### `dialogo.show(): void`
+### `modalogue.show(): void`
 
 Shows a previously hidden modal.
 
 ## Types
 
 ```typescript
-import type { ModalState, ModalContent, ActiveView, Subscriber, ModalAPI } from '@dialogo/core';
+import type { ModalState, ModalContent, ActiveView, Subscriber, ModalAPI } from '@modalogue/core';
 ```
 
 ## License

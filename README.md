@@ -1,8 +1,8 @@
-# Dialogo
+# Modalogue
 
 > **Framework-agnostic modal state management**
 
-Dialogo is a zero-dependency, headless modal engine that provides powerful state management with navigation history. Unlike traditional modal libraries, Dialogo is completely unopinionated about UI and works with any framework or vanilla JavaScript. It focuses purely on state management, letting you handle rendering however you prefer.
+Modalogue is a zero-dependency, headless modal engine that provides powerful state management with navigation history. Unlike traditional modal libraries, Modalogue is completely unopinionated about UI and works with any framework or vanilla JavaScript. It focuses purely on state management, letting you handle rendering however you prefer.
 
 ## ✨ Features
 
@@ -17,11 +17,11 @@ Dialogo is a zero-dependency, headless modal engine that provides powerful state
 ## 🚀 Quick Start
 
 ```bash
-npm install dialogo
+npm install @modalogue/core
 # or
-yarn add dialogo
+yarn add @modalogue/core
 # or
-pnpm add dialogo
+pnpm add @modalogue/core
 ```
 
 ### Basic Usage
@@ -30,21 +30,21 @@ pnpm add dialogo
 
 ```tsx
 import { useEffect, useState } from 'react';
-import Dialogo from 'dialogo';
+import Modalogue from '@modalogue/core';
 
-const dialogo = new Dialogo();
+const modalogue = new Modalogue();
 
 function MyApp() {
   const [modalState, setModalState] = useState(null);
 
   useEffect(() => {
     // Subscribe to modal state changes
-    const unsubscribe = dialogo.subscribe(setModalState);
+    const unsubscribe = modalogue.subscribe(setModalState);
     return unsubscribe;
   }, []);
 
   const openModal = () => {
-    dialogo.open(<div>Hello from Dialogo!</div>);
+    modalogue.open(<div>Hello from Modalogue!</div>);
   };
 
   return (
@@ -55,7 +55,7 @@ function MyApp() {
         <div className="modal-overlay">
           <div className="modal-content">
             {modalState.activeView.element}
-            <button onClick={() => dialogo.close()}>Close</button>
+            <button onClick={() => modalogue.close()}>Close</button>
           </div>
         </div>
       )}
@@ -67,12 +67,12 @@ function MyApp() {
 #### With Vanilla JavaScript
 
 ```javascript
-import Dialogo from 'dialogo';
+import Modalogue from '@modalogue/core';
 
-const dialogo = new Dialogo();
+const modalogue = new Modalogue();
 
 // Subscribe to modal state changes
-const unsubscribe = dialogo.subscribe((state) => {
+const unsubscribe = modalogue.subscribe((state) => {
   const modalElement = document.getElementById('modal');
   const content = document.getElementById('modal-content');
 
@@ -95,21 +95,21 @@ const unsubscribe = dialogo.subscribe((state) => {
 
 // Open modal with HTML content
 document.getElementById('open-btn').addEventListener('click', () => {
-  dialogo.open('<div>Hello from Dialogo!</div>');
+  modalogue.open('<div>Hello from Modalogue!</div>');
 });
 
 // Close modal
 document.getElementById('close-btn').addEventListener('click', () => {
-  dialogo.close();
+  modalogue.close();
 });
 ```
 
 #### With DOM Elements
 
 ```javascript
-import Dialogo from 'dialogo';
+import Modalogue from '@modalogue/core';
 
-const dialogo = new Dialogo();
+const modalogue = new Modalogue();
 
 // Create a DOM element
 const contentElement = document.createElement('div');
@@ -117,7 +117,7 @@ contentElement.innerHTML = '<h2>Dynamic Content</h2><p>This is a DOM element!</p
 
 // Open modal with DOM element
 document.getElementById('open-dom-btn').addEventListener('click', () => {
-  dialogo.open(contentElement);
+  modalogue.open(contentElement);
 });
 ```
 
@@ -125,77 +125,77 @@ document.getElementById('open-dom-btn').addEventListener('click', () => {
 
 ### Core Methods
 
-#### `dialogo.open(content: ModalContent)`
+#### `modalogue.open(content: ModalContent)`
 
 Opens a new modal with the provided content, resetting the navigation history. Accepts any content type - React elements, HTML strings, DOM elements, or any framework objects.
 
 ```tsx
 // With React
-dialogo.open(<div>Welcome to the first step!</div>);
+modalogue.open(<div>Welcome to the first step!</div>);
 
 // With HTML string
-dialogo.open('<div>Welcome to the first step!</div>');
+modalogue.open('<div>Welcome to the first step!</div>');
 
 // With DOM element
 const element = document.createElement('div');
 element.textContent = 'Welcome!';
-dialogo.open(element);
+modalogue.open(element);
 
 // With any framework component
-dialogo.open(anyFrameworkComponent);
+modalogue.open(anyFrameworkComponent);
 ```
 
-#### `dialogo.navigate(content: ModalContent)`
+#### `modalogue.navigate(content: ModalContent)`
 
 Navigate to a new view while preserving history. Accepts any content type - React elements, HTML strings, DOM elements, or any framework objects.
 
 ```tsx
 // With React
-dialogo.navigate(<div>This is the second step!</div>);
+modalogue.navigate(<div>This is the second step!</div>);
 
 // With HTML string
-dialogo.navigate('<div>This is the second step!</div>');
+modalogue.navigate('<div>This is the second step!</div>');
 
 // With DOM element
 const element = document.createElement('div');
 element.textContent = 'Second step!';
-dialogo.navigate(element);
+modalogue.navigate(element);
 
 // With any framework component
-dialogo.navigate(anyFrameworkComponent);
+modalogue.navigate(anyFrameworkComponent);
 ```
 
-#### `dialogo.back()`
+#### `modalogue.back()`
 
 Goes back to the previous view. Closes the modal if no history exists.
 
 ```tsx
-dialogo.back();
+modalogue.back();
 ```
 
-#### `dialogo.close()`
+#### `modalogue.close()`
 
 Closes the modal and clears all history.
 
 ```tsx
-dialogo.close();
+modalogue.close();
 ```
 
-#### `dialogo.hide()` / `dialogo.show()`
+#### `modalogue.hide()` / `modalogue.show()`
 
 Temporarily hides or shows the modal without affecting history.
 
 ```tsx
-dialogo.hide(); // Hide but preserve state
-dialogo.show(); // Show again
+modalogue.hide(); // Hide but preserve state
+modalogue.show(); // Show again
 ```
 
-#### `dialogo.subscribe(callback: (state: ModalState) => void)`
+#### `modalogue.subscribe(callback: (state: ModalState) => void)`
 
 Subscribe to modal state changes. Returns an unsubscribe function.
 
 ```tsx
-const unsubscribe = dialogo.subscribe((state) => {
+const unsubscribe = modalogue.subscribe((state) => {
   console.log('Modal state changed:', state);
 });
 
@@ -221,42 +221,42 @@ type ModalState = {
 
 ## 🔧 Framework Compatibility
 
-Dialogo is designed to work seamlessly with any JavaScript framework without type conflicts:
+Modalogue is designed to work seamlessly with any JavaScript framework without type conflicts:
 
 ### React
 
 ```tsx
-dialogo.open(<MyComponent />);
-dialogo.navigate(<AnotherComponent />);
+modalogue.open(<MyComponent />);
+modalogue.navigate(<AnotherComponent />);
 ```
 
 ### Vue
 
 ```javascript
-dialogo.open(vueComponent);
-dialogo.navigate(anotherVueComponent);
+modalogue.open(vueComponent);
+modalogue.navigate(anotherVueComponent);
 ```
 
 ### Svelte
 
 ```javascript
-dialogo.open(svelteComponent);
-dialogo.navigate(anotherSvelteComponent);
+modalogue.open(svelteComponent);
+modalogue.navigate(anotherSvelteComponent);
 ```
 
 ### Vanilla JavaScript
 
 ```javascript
-dialogo.open(document.createElement('div'));
-dialogo.navigate('<div>HTML string</div>');
+modalogue.open(document.createElement('div'));
+modalogue.navigate('<div>HTML string</div>');
 ```
 
 ### Any Framework
 
 ```javascript
 // Works with any framework's component objects
-dialogo.open(anyFrameworkComponent);
-dialogo.navigate(anotherFrameworkComponent);
+modalogue.open(anyFrameworkComponent);
+modalogue.navigate(anotherFrameworkComponent);
 ```
 
 ## 🎯 Advanced Examples
@@ -264,24 +264,24 @@ dialogo.navigate(anotherFrameworkComponent);
 ### Multi-step Form
 
 ```tsx
-import Dialogo from 'dialogo';
+import Modalogue from '@modalogue/core';
 
-const dialogo = new Dialogo();
+const modalogue = new Modalogue();
 
 function MultiStepForm() {
   const openForm = () => {
-    dialogo.open(
+    modalogue.open(
       <div>
         <h2>Step 1: Personal Info</h2>
         <input placeholder="Name" />
         <button
           onClick={() => {
-            dialogo.navigate(
+            modalogue.navigate(
               <div>
                 <h2>Step 2: Contact</h2>
                 <input placeholder="Email" />
-                <button onClick={() => dialogo.back()}>Back</button>
-                <button onClick={() => dialogo.close()}>Submit</button>
+                <button onClick={() => modalogue.back()}>Back</button>
+                <button onClick={() => modalogue.close()}>Submit</button>
               </div>,
             );
           }}
@@ -301,9 +301,9 @@ function MultiStepForm() {
 #### With Vanilla JavaScript
 
 ```javascript
-import Dialogo from 'dialogo';
+import Modalogue from '@modalogue/core';
 
-const dialogo = new Dialogo();
+const modalogue = new Modalogue();
 
 class ModalManager {
   constructor() {
@@ -317,12 +317,12 @@ class ModalManager {
   }
 
   setupEventListeners() {
-    this.backBtn?.addEventListener('click', () => dialogo.back());
-    this.closeBtn?.addEventListener('click', () => dialogo.close());
+    this.backBtn?.addEventListener('click', () => modalogue.back());
+    this.closeBtn?.addEventListener('click', () => modalogue.close());
   }
 
   subscribeToState() {
-    dialogo.subscribe((state) => {
+    modalogue.subscribe((state) => {
       if (state.isOpen) {
         this.modalElement.style.display = 'flex';
 
@@ -350,16 +350,16 @@ const modalManager = new ModalManager();
 
 // Open multi-step form with HTML strings
 document.getElementById('start-form').addEventListener('click', () => {
-  dialogo.open(`
+  modalogue.open(`
     <div>
       <h2>Step 1: Personal Info</h2>
       <input placeholder="Name" />
-      <button onclick="dialogo.navigate(`
+      <button onclick="modalogue.navigate(`
         <div>
           <h2>Step 2: Contact</h2>
           <input placeholder="Email" />
-          <button onclick="dialogo.back()">Back</button>
-          <button onclick="dialogo.close()">Submit</button>
+          <button onclick="modalogue.back()">Back</button>
+          <button onclick="modalogue.close()">Submit</button>
         </div>
       `)">Next</button>
     </div>
@@ -374,15 +374,15 @@ document.getElementById('start-form').addEventListener('click', () => {
 'use client';
 
 import { useEffect, useState } from 'react';
-import Dialogo from 'dialogo';
+import Modalogue from '@modalogue/core';
 
-const dialogo = new Dialogo();
+const modalogue = new Modalogue();
 
 export default function Modal() {
   const [state, setState] = useState(null);
 
   useEffect(() => {
-    return dialogo.subscribe(setState);
+    return modalogue.subscribe(setState);
   }, []);
 
   if (!state?.isOpen) return null;
@@ -391,8 +391,8 @@ export default function Modal() {
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
       <div className="bg-white p-6 rounded-lg">
         {state.activeView.element}
-        {state.hasHistory && <button onClick={() => dialogo.back()}>Back</button>}
-        <button onClick={() => dialogo.close()}>Close</button>
+        {state.hasHistory && <button onClick={() => modalogue.back()}>Back</button>}
+        <button onClick={() => modalogue.close()}>Close</button>
       </div>
     </div>
   );
@@ -402,15 +402,15 @@ export default function Modal() {
 #### With Tailwind CSS
 
 ```tsx
-import Dialogo from 'dialogo';
+import Modalogue from '@modalogue/core';
 
-const dialogo = new Dialogo();
+const modalogue = new Modalogue();
 
 function StyledModal() {
   const [state, setState] = useState(null);
 
   useEffect(() => {
-    return dialogo.subscribe(setState);
+    return modalogue.subscribe(setState);
   }, []);
 
   if (!state?.isOpen) return null;
@@ -424,7 +424,7 @@ function StyledModal() {
             <button
               type="button"
               className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
-              onClick={() => dialogo.close()}
+              onClick={() => modalogue.close()}
             >
               Close
             </button>
@@ -432,7 +432,7 @@ function StyledModal() {
               <button
                 type="button"
                 className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                onClick={() => dialogo.back()}
+                onClick={() => modalogue.back()}
               >
                 Back
               </button>
@@ -456,7 +456,7 @@ MIT © [Edoardo Guido](https://edoguido.com/)
 ## 🆘 Support
 
 - 📧 Email: ciao@edoardoguido.com
-- 🐛 Issues: [GitHub Issues](https://github.com/edoguido/dialogo/issues)
+- 🐛 Issues: [GitHub Issues](https://github.com/edoardoguido/modalogue/issues)
 - 📖 Documentation: [Website](https://edoguido.com/)
 
 ---

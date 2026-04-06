@@ -1,6 +1,6 @@
-# Contributing to Dialogo
+# Contributing to Modalogue
 
-Thank you for your interest in contributing to Dialogo! This guide will help you get started with development and understand our contribution process.
+Thank you for your interest in contributing to Modalogue! This guide will help you get started with development and understand our contribution process.
 
 ## 🚀 Quick Start
 
@@ -15,8 +15,8 @@ Thank you for your interest in contributing to Dialogo! This guide will help you
 1. **Fork and clone the repository**
 
    ```bash
-   git clone https://github.com/your-username/dialogo.git
-   cd dialogo
+   git clone https://github.com/your-username/modalogue.git
+   cd modalogue
    ```
 
 2. **Install dependencies**
@@ -41,7 +41,7 @@ Thank you for your interest in contributing to Dialogo! This guide will help you
 ## 🏗️ Project Structure
 
 ```
-dialogo/
+modalogue/
 ├── src/
 │   └── index.ts          # Main library code
 ├── test/                 # Test website and examples
@@ -99,7 +99,7 @@ export type ModalState = {
 - Test navigation history functionality
 - Test subscription/unsubscription patterns
 - Test generic type compatibility with any framework
-- Test multiple Dialogo instances (no singleton)
+- Test multiple Modalogue instances (no singleton)
 
 #### Automated Testing
 
@@ -130,7 +130,7 @@ pnpm type-check
 
 ### Low Priority
 
-- **UI Components**: Since Dialogo is headless, UI components belong in separate packages
+- **UI Components**: Since Modalogue is headless, UI components belong in separate packages
 - **Styling**: Visual styling should be handled by consumers
 
 ## 🔧 Development Workflow
@@ -341,46 +341,46 @@ pnpm format           # Format code
 
 ---
 
-**Thank you for contributing to Dialogo!** 🎉
+**Thank you for contributing to Modalogue!** 🎉
 
-Your contributions help make Dialogo better for everyone in the JavaScript ecosystem.
+Your contributions help make Modalogue better for everyone in the JavaScript ecosystem.
 
 ### React
 
 ```typescript
-import Dialogo from 'dialogo';
-const dialogo = new Dialogo();
-dialogo.open(<MyComponent />);
+import Modalogue from '@modalogue/core';
+const modalogue = new Modalogue();
+modalogue.open(<MyComponent />);
 ```
 
 ### Vue
 
 ```typescript
-import Dialogo from 'dialogo';
-const dialogo = new Dialogo();
-dialogo.open(vueComponent);
+import Modalogue from '@modalogue/core';
+const modalogue = new Modalogue();
+modalogue.open(vueComponent);
 ```
 
 ### Svelte
 
 ```typescript
-import Dialogo from 'dialogo';
-const dialogo = new Dialogo();
-dialogo.open(svelteComponent);
+import Modalogue from '@modalogue/core';
+const modalogue = new Modalogue();
+modalogue.open(svelteComponent);
 ```
 
 ### Vanilla JavaScript
 
 ```typescript
-import Dialogo from 'dialogo';
-const dialogo = new Dialogo();
-dialogo.open(document.createElement('div'));
+import Modalogue from '@modalogue/core';
+const modalogue = new Modalogue();
+modalogue.open(document.createElement('div'));
 ```
 
 ### Any Framework
 
 ```typescript
-import Dialogo from 'dialogo';
-const dialogo = new Dialogo();
-dialogo.open(anyFrameworkComponent);
+import Modalogue from '@modalogue/core';
+const modalogue = new Modalogue();
+modalogue.open(anyFrameworkComponent);
 ```

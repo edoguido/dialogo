@@ -7,71 +7,71 @@ This library is designed to work seamlessly with React, Vue, Svelte, and vanilla
 ### Vanilla JavaScript / TypeScript
 
 ```typescript
-import Dialogo from 'dialogo';
-const dialogo = new Dialogo();
+import Modalogue from '@modalogue/core';
+const modalogue = new Modalogue();
 
 // DOM Element
 const element = document.createElement('div');
 element.innerHTML = '<h1>Hello World</h1>';
-dialogo.open(element);
+modalogue.open(element);
 
 // String content
-dialogo.open('<h1>Hello World</h1>');
+modalogue.open('<h1>Hello World</h1>');
 
 // Any other content type
-dialogo.open(anyContent);
+modalogue.open(anyContent);
 ```
 
 ### React
 
 ```typescript
-import Dialogo from 'dialogo';
-const dialogo = new Dialogo();
+import Modalogue from '@modalogue/core';
+const modalogue = new Modalogue();
 
 // React elements
 const MyComponent = () => <div>Hello World</div>;
-dialogo.open(<MyComponent />);
+modalogue.open(<MyComponent />);
 
 // React nodes
-dialogo.open(<h1>Hello World</h1>);
+modalogue.open(<h1>Hello World</h1>);
 
 // Any other content type
-dialogo.open(anyContent);
+modalogue.open(anyContent);
 ```
 
 ### Vue
 
 ```typescript
-import Dialogo from 'dialogo';
-const dialogo = new Dialogo();
+import Modalogue from '@modalogue/core';
+const modalogue = new Modalogue();
 
 // Vue components
 const MyComponent = {
   template: '<div>Hello World</div>',
 };
-dialogo.open(MyComponent);
+modalogue.open(MyComponent);
 
 // Vue VNodes
-dialogo.open(h('div', 'Hello World'));
+modalogue.open(h('div', 'Hello World'));
 
 // Any other content type
-dialogo.open(anyContent);
+modalogue.open(anyContent);
 ```
 
 ### Svelte
 
 ```typescript
-import Dialogo from 'dialogo';
-const dialogo = new Dialogo();
+import Modalogue from '@modalogue/core';
+const modalogue = new Modalogue();
 
 // Svelte components
 const MyComponent = {
   $$render: () => '<div>Hello World</div>',
 };
-dialogo.open(MyComponent);
+modalogue.open(MyComponent);
 
 // Any other content type
-dialogo.open(anyContent);
+modalogue.open(anyContent);
 ```
 
 ## Type Safety
@@ -80,7 +80,7 @@ The library uses a generic `ModalContent<T = any>` type that accepts any content
 
 1. **No Type Conflicts**: Works with any framework without type errors
 2. **Flexible Content**: Accepts React elements, Vue components, HTML strings, DOM elements, or any framework objects
-3. **Simple API**: Just `import modal from 'dialogo'` works for all frameworks
+3. **Simple API**: Just `import Modalogue from '@modalogue/core'` works for all frameworks
 
 ## Content Handling
 
@@ -112,14 +112,14 @@ if (typeof content === 'string') {
 
 ```tsx
 import React, { useEffect, useState } from 'react';
-import Dialogo from 'dialogo';
-const dialogo = new Dialogo();
+import Modalogue from '@modalogue/core';
+const modalogue = new Modalogue();
 
 const ModalProvider: React.FC = () => {
   const [state, setState] = useState(null);
 
   useEffect(() => {
-    return dialogo.subscribe(setState);
+    return modalogue.subscribe(setState);
   }, []);
 
   if (!state?.isOpen) return null;
@@ -139,15 +139,15 @@ const ModalProvider: React.FC = () => {
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
-import Dialogo from 'dialogo';
-const dialogo = new Dialogo();
+import Modalogue from '@modalogue/core';
+const modalogue = new Modalogue();
 
 const state = ref(null);
 
 let unsubscribe: (() => void) | undefined;
 
 onMounted(() => {
-  unsubscribe = dialogo.subscribe((newState) => {
+  unsubscribe = modalogue.subscribe((newState) => {
     state.value = newState;
   });
 });
@@ -163,15 +163,15 @@ onUnmounted(() => {
 ```svelte
 <script lang="ts">
   import { onMount } from 'svelte';
-  import Dialogo from 'dialogo';
-  const dialogo = new Dialogo();
+  import Modalogue from '@modalogue/core';
+  const modalogue = new Modalogue();
 
   let state = null;
 
   let unsubscribe: (() => void) | undefined;
 
   onMount(() => {
-    unsubscribe = dialogo.subscribe((newState) => {
+    unsubscribe = modalogue.subscribe((newState) => {
       state = newState;
     });
   });
@@ -211,4 +211,4 @@ The library provides a single, simple API that works with all frameworks:
 }
 ```
 
-Just `import modal from 'dialogo'` and you're ready to go with any framework!
+Just `import Modalogue from '@modalogue/core'` and you're ready to go with any framework!
