@@ -3,11 +3,11 @@
 import { motion, AnimatePresence, Variants, AnimatePresenceProps } from 'motion/react';
 import useMeasure from 'react-use-measure';
 
-import React, { useEffect, useState } from 'react';
-import { type ModalState } from '@dialogo/core';
+import React, { useEffect, useRef, useState } from 'react';
+import { type ModalState } from '@modalogue/core';
 
-import './dialogo.css';
-import { dialogo } from './dialogo-instance';
+import './modalogue.css';
+import { modalogue } from './modalogue-instance';
 
 type ModalT = {
   modalVariants?: Variants;
@@ -25,6 +25,7 @@ function Modal(props: ModalT) {
   const { modalVariants = MODAL_VARIANTS, viewVariants = VIEW_VARIANTS, viewTransitionMode = 'popLayout' } = props;
 
   const { isOpen, activeView } = useModal();
+  const modalRef = useRef<HTMLDivElement>(null);
   const [boundsRef, bounds] = useMeasure({ offsetSize: true });
 
   const modalVariantsAnimateType = typeof modalVariants.animate;
@@ -50,19 +51,28 @@ function Modal(props: ModalT) {
     };
   }, []);
 
+  useEffect(() => {
+    if (isOpen) {
+      modalRef.current?.focus();
+    }
+  }, [isOpen, activeView.id]);
+
   return (
     <AnimatePresence mode="wait">
       {isOpen && (
-        <motion.div data-dialogo-container="" initial="initial" animate="animate" exit="exit">
+        <motion.div data-modalogue-container="" initial="initial" animate="animate" exit="exit" data-testid="modal">
           <motion.div
-            data-dialogo-overlay=""
+            data-modalogue-overlay=""
+            data-testid="modal-backdrop"
             onClick={() => {
-              dialogo.close();
+              modalogue.close();
             }}
             variants={OVERLAY_VARIANTS}
           />
           <motion.div
-            data-dialogo-modal=""
+            data-modalogue-modal=""
+            tabIndex={0}
+            ref={modalRef}
             custom={bounds}
             variants={{
               initial: { ...modalVariants.initial },
@@ -70,7 +80,7 @@ function Modal(props: ModalT) {
               exit: { ...modalVariants.exit },
             }}
           >
-            <motion.div data-dialogo-view ref={boundsRef} variants={viewVariants}>
+            <motion.div data-modalogue-view ref={boundsRef} variants={viewVariants} data-testid="modal-content">
               <AnimatePresence initial={false} mode={viewTransitionMode}>
                 <motion.div
                   key={activeView.id}
@@ -160,17 +170,17 @@ const CONTENT_VARIANTS: Variants = {
   }),
 };
 
-const DIALOGO_INITIAL_STATE: ModalState = {
+const MODALOGUE_INITIAL_STATE: ModalState = {
   isOpen: false,
   activeView: { id: null, element: null },
   hasHistory: false,
 };
 
 export const useModal = () => {
-  const [state, setState] = useState<ModalState>(DIALOGO_INITIAL_STATE);
+  const [state, setState] = useState<ModalState>(MODALOGUE_INITIAL_STATE);
 
   useEffect(() => {
-    const unsubscribe = dialogo.subscribe(setState);
+    const unsubscribe = modalogue.subscribe(setState);
     return unsubscribe;
   }, []);
 
@@ -179,7 +189,7 @@ export const useModal = () => {
 
 const closeOnEscapeKey = (e: KeyboardEvent) => {
   if (e.key.toLowerCase() === 'escape') {
-    dialogo.close();
+    modalogue.close();
   }
 };
 

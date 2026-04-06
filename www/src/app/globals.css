@@ -25,7 +25,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-[data-dialogo-modal] {
+[data-modalogue-modal] {
   --y-from: 0%;
   --y-to: 0%;
 
@@ -37,7 +37,7 @@ body {
 }
 
 @media screen and (max-width: 480px) {
-  [data-dialogo-modal] {
+  [data-modalogue-modal] {
     --y-from: 100%;
     --y-to: 0%;
 

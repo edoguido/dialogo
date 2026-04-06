@@ -2,7 +2,7 @@
 
 import { motion } from 'motion/react';
 import Modal from './modal';
-import { dialogo } from './dialogo-instance';
+import { modalogue } from './modalogue-instance';
 
 // const MODAL_VARIANTS: Variants = {
 //   initial: {
@@ -32,12 +32,31 @@ export default function Home() {
   return (
     <div className="flex items-start justify-center min-h-screen font-[family-name:var(--font-geist-sans)]">
       <button
+        data-testid="open-modal"
         className="block bg-black text-white px-2 py-0.5 cursor-pointer rounded-lg"
         onClick={() => {
-          dialogo.open(<FirstModalView />);
+          modalogue.open(<FirstModalView />);
         }}
       >
         Open modal
+      </button>
+      <button
+        data-testid="hide-modal"
+        className="block bg-white text-black px-2 py-0.5 cursor-pointer rounded-lg"
+        onClick={() => {
+          modalogue.hide();
+        }}
+      >
+        Hide modal
+      </button>
+      <button
+        data-testid="show-modal"
+        className="block bg-black text-white px-2 py-0.5 cursor-pointer rounded-lg"
+        onClick={() => {
+          modalogue.show();
+        }}
+      >
+        Show modal
       </button>
       <Modal viewTransitionMode="popLayout" /* modalVariants={MODAL_VARIANTS} */ />
     </div>
@@ -46,12 +65,22 @@ export default function Home() {
 
 const FirstModalView = () => {
   return (
-    <div className="p-4 w-[480px] h-[380px]">
+    <div className="p-4 w-[480px] h-[380px]" data-testid="step-1">
       <div>Ciaone</div>
       <button
+        data-testid="close-modal"
+        className="bg-white text-black px-2 py-0.5 cursor-pointer rounded-lg"
+        onClick={() => {
+          modalogue.close();
+        }}
+      >
+        Close
+      </button>
+      <button
+        data-testid="next-step"
         className="bg-black text-white px-2 py-0.5 cursor-pointer rounded-lg"
         onClick={() => {
-          dialogo.navigate(<SecondModalView />);
+          modalogue.navigate(<SecondModalView />);
         }}
       >
         Go to second
@@ -62,21 +91,32 @@ const FirstModalView = () => {
 
 const SecondModalView = () => {
   return (
-    <div className="p-4 w-[480px] h-[520px]">
+    <div className="p-4 w-[480px] h-[520px]" data-testid="step-2">
       <PermanentElement activeStep={1} />
       <div>Second view</div>
       <button
+        data-testid="hide-modal"
         className="bg-white text-black px-2 py-0.5 cursor-pointer rounded-lg"
         onClick={() => {
-          dialogo.back();
+          modalogue.hide();
+        }}
+      >
+        Hide modal
+      </button>
+      <button
+        data-testid="back-step"
+        className="bg-white text-black px-2 py-0.5 cursor-pointer rounded-lg"
+        onClick={() => {
+          modalogue.back();
         }}
       >
         Go back
       </button>
       <button
+        data-testid="next-step"
         className="bg-black text-white px-2 py-0.5 cursor-pointer rounded-lg"
         onClick={() => {
-          dialogo.navigate(<ThirdModalView />);
+          modalogue.navigate(<ThirdModalView />);
         }}
       >
         Go to third
@@ -87,13 +127,14 @@ const SecondModalView = () => {
 
 const ThirdModalView = () => {
   return (
-    <div className="p-4 w-[420px] h-[420px]">
+    <div className="p-4 w-[420px] h-[420px]" data-testid="step-3">
       <PermanentElement activeStep={2} />
       <div>Third view</div>
       <button
+        data-testid="back-step"
         className="bg-black text-white px-2 py-0.5 cursor-pointer rounded-lg"
         onClick={() => {
-          dialogo.back();
+          modalogue.back();
         }}
       >
         Go back
