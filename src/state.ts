@@ -18,7 +18,7 @@ class Observer {
   private viewHistory: Array<ModalState['activeView']> = [];
   // activeView is derived from viewHistory
 
-  private constructor() {}
+  private constructor() { }
 
   public static getInstance(): Observer {
     if (!Observer.instance) {
@@ -39,7 +39,7 @@ class Observer {
       hasHistory: this.viewHistory.length > 1,
     };
 
-    this.subscribers.forEach((subscriber) => subscriber(state));
+    this.subscribers.forEach((subscriber) => { subscriber(state) });
   };
 
   private getActiveView = (): ModalState['activeView'] => {

@@ -14,41 +14,51 @@
   --dialogo-min-height: 12rem;
 }
 
-[data-dialogo-container] {
-  position: fixed;
-  inset: 0;
+@layer dialogo {
+  [data-dialogo-container] {
+    position: fixed;
+    inset: 0;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  isolation: isolate;
-  perspective: 1500px;
-}
+    isolation: isolate;
+    perspective: 1500px;
+  }
 
-[data-dialogo-overlay] {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-color: var(--dialogo-color-overlay-background);
+  [data-dialogo-overlay] {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: var(--dialogo-color-overlay-background);
 
-  backdrop-filter: blur(10px);
-}
+    backdrop-filter: blur(10px);
+  }
 
-[data-dialogo-modal] {
-  color: var(--dialogo-color-text);
-  background: var(--dialogo-color-background);
-  border-radius: var(--dialogo-border-radius);
-  padding: var(--dialogo-padding-top) var(--dialogo-padding-right) var(--dialogo-padding-bottom)
-    var(--dialogo-padding-left);
-  overflow: hidden;
-  /* min-width: var(--dialogo-min-width); */
-  /* min-height: var(--dialogo-min-height); */
+  [data-dialogo-modal] {
+    color: var(--dialogo-color-text);
+    background: var(--dialogo-color-background);
+    border-radius: var(--dialogo-border-radius);
+    padding: var(--dialogo-padding-top) var(--dialogo-padding-right) var(--dialogo-padding-bottom)
+      var(--dialogo-padding-left);
+    overflow: hidden;
 
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08), 0 1.5px 6px rgba(0, 0, 0, 0.12);
-}
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+  }
 
-[data-dialogo-view-content] {
-  width: fit-content !important;
-  overflow: hidden;
+  [data-dialogo-view-content] {
+    width: fit-content !important;
+    overflow: hidden;
+  }
+
+  @media screen and (max-width: 520px) {
+    [data-dialogo-modal] {
+      position: fixed;
+      bottom: 0;
+      border-radius: var(--dialogo-border-radius) var(--dialogo-border-radius) 0px 0px;
+      max-width: calc(100% - 1rem);
+      padding-bottom: env(--safe-area-bottom, 1rem);
+    }
+  }
 }
