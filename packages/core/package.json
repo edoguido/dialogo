@@ -1,5 +1,5 @@
 {
-  "name": "@dialogo/core",
+  "name": "@modalogue/core",
   "version": "0.1.0",
   "description": "Headless state management for multi-step dialogs",
   "exports": {
@@ -39,10 +39,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/edoardoguido/dialogo",
+    "url": "https://github.com/edoardoguido/modalogue",
     "directory": "packages/core"
   },
-  "homepage": "https://dialogo.dev",
+  "homepage": "https://modalogue.dev",
   "peerDependencies": {},
   "dependencies": {},
   "devDependencies": {

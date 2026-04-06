@@ -3,14 +3,14 @@ import type { ModalContent, ActiveView, ModalState, Subscriber, ModalAPI } from 
 // Re-export types for framework-specific usage
 export type { ModalContent, ActiveView, ModalState, Subscriber, ModalAPI };
 
-class Dialogo {
+class Modalogue {
   private subscribers: Set<Subscriber> = new Set();
   private isOpen: boolean = false;
   private viewHistory: Array<ActiveView> = [];
 
   public constructor() {
-    // if (!Dialogo.instance) {
-    //   Dialogo.instance = new Dialogo();
+    // if (!Modalogue.instance) {
+    //   Modalogue.instance = new Modalogue();
     // }
   }
 
@@ -70,4 +70,4 @@ class Dialogo {
   };
 }
 
-export default Dialogo;
+export default Modalogue;

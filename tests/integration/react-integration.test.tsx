@@ -1,11 +1,11 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
-import Dialogo, { type ModalState } from '@dialogo/core';
+import Modalogue, { type ModalState } from '@modalogue/core';
 import '@testing-library/jest-dom';
 
 // Create a fresh instance for testing
-const dialogo = new Dialogo();
+const modalogue = new Modalogue();
 
 // Mock React component for testing
 const TestModal = () => {
@@ -16,28 +16,28 @@ const TestModal = () => {
   });
 
   React.useEffect(() => {
-    const unsubscribe = dialogo.subscribe(setState);
+    const unsubscribe = modalogue.subscribe(setState);
     return unsubscribe;
   }, []);
 
   const handleOpen = () => {
     const content = document.createElement('div');
     content.innerHTML = '<h1>Test Modal</h1>';
-    dialogo.open(content);
+    modalogue.open(content);
   };
 
   const handleClose = () => {
-    dialogo.close();
+    modalogue.close();
   };
 
   const handleNavigate = () => {
     const content = document.createElement('div');
     content.innerHTML = '<h2>Step 2</h2>';
-    dialogo.navigate(content);
+    modalogue.navigate(content);
   };
 
   const handleBack = () => {
-    dialogo.back();
+    modalogue.back();
   };
 
   return (
@@ -84,7 +84,7 @@ const TestModal = () => {
 
 describe('React Integration Tests', () => {
   beforeEach(() => {
-    dialogo.close();
+    modalogue.close();
   });
 
   it('should render modal when opened', () => {

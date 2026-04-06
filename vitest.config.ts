@@ -9,7 +9,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@dialogo/core': path.resolve(__dirname, 'packages/core/src/index.ts'),
+      '@modalogue/core': path.resolve(__dirname, 'packages/core/src/index.ts'),
     },
   },
 });
