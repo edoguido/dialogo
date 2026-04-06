@@ -1,11 +1,8 @@
 'use client';
 
-import Dialogo from 'dialogo';
 import { motion } from 'motion/react';
 import Modal from './modal';
-
-const dialogo = new Dialogo();
-export { dialogo };
+import { dialogo } from './dialogo-instance';
 
 // const MODAL_VARIANTS: Variants = {
 //   initial: {

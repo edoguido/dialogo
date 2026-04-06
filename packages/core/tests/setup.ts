@@ -9,4 +9,4 @@ if (typeof window !== 'undefined') {
   if (!document) {
     throw new Error('Document not available in test environment');
   }
-} 
+}

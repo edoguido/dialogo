@@ -1,41 +1,25 @@
 {
-  "name": "dialogo",
-  "version": "0.1.0",
-  "description": "An unopinionated modal engine",
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      },
-      "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
-      "default": "./dist/index.js"
-    }
-  },
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "name": "dialogo-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Dialogo monorepo - Headless modal engine",
   "scripts": {
-    "dev": "bunchee --watch",
-    "build": "bunchee",
-    "type-check": "tsc --noEmit",
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "type-check": "turbo run type-check",
     "dev:website": "turbo run dev --filter=dialogo-website...",
     "format": "prettier --write .",
     "test": "playwright test",
-    "test:unit": "vitest",
-    "test:unit:run": "vitest run",
-    "test:unit:coverage": "vitest run --coverage"
+    "test:unit": "turbo run test:unit:run",
+    "test:integration": "vitest run",
+    "test:integration:watch": "vitest"
   },
   "keywords": [
-    "react",
     "modal",
     "dialog",
-    "multi-step"
+    "multi-step",
+    "headless",
+    "state-management"
   ],
   "author": "Edoardo Guido <ciao@edoardoguido.com>",
   "license": "MIT",
@@ -43,28 +27,23 @@
     "type": "git",
     "url": "https://github.com/edoardoguido/dialogo"
   },
-  "homepage": "https://edoardoguido.com/",
-  "dependencies": {
-    "motion": "^12.12.1",
-    "react-use-measure": "^2.1.7"
-  },
+  "homepage": "https://dialogo.dev",
   "devDependencies": {
     "@eslint/eslintrc": "latest",
     "@playwright/test": "^1.49.1",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
     "@types/node": "^18.11.13",
     "@types/react": "^18.0.26",
-    "bunchee": "^6.5.2",
     "eslint": "^9.27.0",
     "eslint-config-next": "latest",
+    "jsdom": "^26.1.0",
     "prettier": "^2.8.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "turbo": "2.5.3",
     "typescript": "^5.8.3",
-    "vitest": "^2.1.8",
-    "jsdom": "^26.1.0",
-    "@testing-library/react": "^16.1.0",
-    "@testing-library/jest-dom": "^6.6.3"
+    "vitest": "^2.1.8"
   },
   "packageManager": "pnpm@8.12.1"
 }

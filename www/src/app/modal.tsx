@@ -4,10 +4,10 @@ import { motion, AnimatePresence, Variants, AnimatePresenceProps } from 'motion/
 import useMeasure from 'react-use-measure';
 
 import React, { useEffect, useState } from 'react';
-import { type ModalState } from 'dialogo';
+import { type ModalState } from '@dialogo/core';
 
 import './dialogo.css';
-import { dialogo } from './page';
+import { dialogo } from './dialogo-instance';
 
 type ModalT = {
   modalVariants?: Variants;

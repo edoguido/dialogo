@@ -27,4 +27,3 @@ export interface ModalAPI {
   show: () => void;
   subscribe: (callback: Subscriber) => () => void;
 }
-

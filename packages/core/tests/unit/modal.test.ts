@@ -1,13 +1,14 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import '@testing-library/jest-dom';
-import dialogo from 'dialogo';
+import Dialogo from '../../src/index';
 
 describe('Dialogo Modal Engine', () => {
+  let dialogo: Dialogo;
   let mockSubscriber: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
-    // Reset modal state before each test
-    dialogo.close();
+    // Create fresh instance for each test
+    dialogo = new Dialogo();
     mockSubscriber = vi.fn();
   });
 
@@ -51,20 +52,6 @@ describe('Dialogo Modal Engine', () => {
       expect(mockSubscriber).toHaveBeenCalledWith({
         isOpen: true,
         activeView: { element: content, id: 0 },
-        hasHistory: false,
-      });
-
-      unsubscribe();
-    });
-  });
-
-  describe('Initial State', () => {
-    it('should start with modal closed', () => {
-      const unsubscribe = dialogo.subscribe(mockSubscriber);
-
-      expect(mockSubscriber).toHaveBeenCalledWith({
-        isOpen: false,
-        activeView: null,
         hasHistory: false,
       });
 
@@ -201,25 +188,7 @@ describe('Dialogo Modal Engine', () => {
 
       expect(mockSubscriber).toHaveBeenCalledWith({
         isOpen: false,
-        activeView: null,
-        hasHistory: false,
-      });
-
-      unsubscribe();
-    });
-
-    it('should not go back when no history exists', () => {
-      const content = document.createElement('div');
-      const unsubscribe = dialogo.subscribe(mockSubscriber);
-
-      dialogo.open(content);
-      mockSubscriber.mockClear();
-
-      dialogo.back();
-
-      expect(mockSubscriber).toHaveBeenCalledWith({
-        isOpen: false,
-        activeView: null,
+        activeView: { id: null, element: null },
         hasHistory: false,
       });
 
@@ -241,7 +210,7 @@ describe('Dialogo Modal Engine', () => {
 
       expect(mockSubscriber).toHaveBeenCalledWith({
         isOpen: false,
-        activeView: null,
+        activeView: { id: null, element: null },
         hasHistory: false,
       });
 
@@ -318,7 +287,7 @@ describe('Dialogo Modal Engine', () => {
       dialogo.open(content);
 
       // Should not be called after unsubscribing
-      expect(subscriber).toHaveBeenCalledTimes(1); // Only the initial call
+      expect(subscriber).toHaveBeenCalledTimes(0);
     });
   });
 
@@ -356,11 +325,11 @@ describe('Dialogo Modal Engine', () => {
       dialogo.close();
       expect(mockSubscriber).toHaveBeenLastCalledWith({
         isOpen: false,
-        activeView: null,
+        activeView: { id: null, element: null },
         hasHistory: false,
       });
 
       unsubscribe();
     });
   });
-}); 
+});

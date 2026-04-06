@@ -34,7 +34,7 @@ class Dialogo {
   };
 
   public open = (content: ModalContent): void => {
-    this.viewHistory = [{ id: this.viewHistory.length, element: content }];
+    this.viewHistory = [{ id: 0, element: content }];
     this.isOpen = true;
     this.notify();
   };
