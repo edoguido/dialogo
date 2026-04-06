@@ -1,0 +1,53 @@
+{
+  "name": "@modalogue/react",
+  "version": "0.1.0",
+  "description": "React bindings for Modalogue",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "sideEffects": false,
+  "scripts": {
+    "build": "bunchee",
+    "dev": "bunchee --watch",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "modal",
+    "dialog",
+    "react",
+    "headless",
+    "state-management"
+  ],
+  "author": "Edoardo Guido <ciao@edoardoguido.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/edoardoguido/modalogue",
+    "directory": "packages/react"
+  },
+  "homepage": "https://modalogue.dev",
+  "peerDependencies": {
+    "@modalogue/core": "workspace:*",
+    "motion": "^12.12.1",
+    "react": ">=18"
+  },
+  "dependencies": {
+    "react-use-measure": "^2.1.7"
+  },
+  "devDependencies": {
+    "bunchee": "^6.5.2",
+    "typescript": "^5.8.3"
+  }
+}

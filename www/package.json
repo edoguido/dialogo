@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@modalogue/core": "workspace:*",
+    "@modalogue/react": "workspace:*",
     "motion": "^12.12.1",
     "next": "15.3.2",
     "react": "^19.0.0",

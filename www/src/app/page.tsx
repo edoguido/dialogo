@@ -1,8 +1,9 @@
 'use client';
 
 import { motion } from 'motion/react';
-import Modal from './modal';
+import Modal from '@modalogue/react';
 import { modalogue } from './modalogue-instance';
+import './modalogue.css';
 
 // const MODAL_VARIANTS: Variants = {
 //   initial: {
@@ -58,7 +59,7 @@ export default function Home() {
       >
         Show modal
       </button>
-      <Modal viewTransitionMode="popLayout" /* modalVariants={MODAL_VARIANTS} */ />
+      <Modal modalogue={modalogue} viewTransitionMode="popLayout" /* modalVariants={MODAL_VARIANTS} */ />
     </div>
   );
 }
