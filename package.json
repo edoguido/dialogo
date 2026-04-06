@@ -1,13 +1,13 @@
 {
-  "name": "dialogo-monorepo",
+  "name": "modalogue-monorepo",
   "version": "0.0.0",
   "private": true,
-  "description": "Dialogo monorepo - Headless modal engine",
+  "description": "Modalogue monorepo - Headless modal engine",
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
     "type-check": "turbo run type-check",
-    "dev:website": "turbo run dev --filter=dialogo-website...",
+    "dev:website": "turbo run dev --filter=modalogue-website...",
     "format": "prettier --write .",
     "test": "playwright test",
     "test:unit": "turbo run test:unit:run",
@@ -25,9 +25,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/edoardoguido/dialogo"
+    "url": "https://github.com/edoardoguido/modalogue"
   },
-  "homepage": "https://dialogo.dev",
+  "homepage": "https://modalogue.dev",
   "devDependencies": {
     "@eslint/eslintrc": "latest",
     "@playwright/test": "^1.49.1",

@@ -21,8 +21,8 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "dialogo": ["../src/index"],
-      "dialogo/*": ["../src/*"]
+      "modalogue": ["../packages/core/src/index"],
+      "modalogue/*": ["../packages/core/src/*"]
     }
   },
   "include": [

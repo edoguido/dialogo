@@ -1,0 +1,73 @@
+:root {
+  --modalogue-color-background: white;
+  --modalogue-color-text: black;
+  --modalogue-color-overlay-transparency: 0.2;
+  --modalogue-color-overlay-background: rgba(0, 0, 0, var(--modalogue-color-overlay-transparency));
+
+  --modalogue-border-radius: 0.5rem;
+  --modalogue-padding-top: 0;
+  --modalogue-padding-right: 0;
+  --modalogue-padding-bottom: 0;
+  --modalogue-padding-left: 0;
+  --modalogue-margin-x: var(--modalogue-margin-left, var(--modalogue-margin-right, 0px)); /* fallback chain in CSS */
+  --modalogue-margin-y: var(--modalogue-margin-top, var(--modalogue-margin-bottom, 0px));
+
+  --modalogue-min-width: 24rem;
+  --modalogue-min-height: 12rem;
+}
+
+@layer modalogue {
+  [data-modalogue-container] {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    isolation: isolate;
+    perspective: 1500px;
+  }
+
+  [data-modalogue-overlay] {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: var(--modalogue-color-overlay-background);
+
+    backdrop-filter: blur(10px);
+  }
+
+  [data-modalogue-modal] {
+    color: var(--modalogue-color-text);
+    background: var(--modalogue-color-background);
+    border-radius: var(--modalogue-border-radius);
+    padding: var(--modalogue-padding-top) var(--modalogue-padding-right) var(--modalogue-padding-bottom)
+      var(--modalogue-padding-left);
+    overflow: hidden;
+    will-change: contents, transform, opacity;
+
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08), 0 1.5px 6px rgba(0, 0, 0, 0.12);
+  }
+
+  [data-modalogue-view] {
+    width: fit-content !important;
+    overflow: hidden;
+    will-change: contents, transform, opacity;
+  }
+
+  @media screen and (max-width: 480px) {
+    [data-modalogue-container] {
+      align-items: end;
+    }
+
+    [data-modalogue-modal] {
+      border-radius: var(--modalogue-border-radius) var(--modalogue-border-radius) 0 0;
+      width: calc(100vw - var(--modalogue-margin-x));
+      min-width: calc(100vw - var(--modalogue-margin-x));
+      max-width: calc(100vw - var(--modalogue-margin-x));
+      max-height: 90vh;
+      padding-bottom: env(--safe-area-bottom, 2rem);
+    }
+  }
+}
