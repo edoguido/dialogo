@@ -1,0 +1,36 @@
+{
+  "name": "modalogue",
+  "packages": [
+    {
+      "name": "@modalogue/core",
+      "path": "packages/core",
+      "entrypoint": "packages/core/src/index.ts",
+      "types": "packages/core/src/types.ts"
+    },
+    {
+      "name": "@modalogue/react",
+      "path": "packages/react",
+      "entrypoint": "packages/react/dist/index.mjs",
+      "types": "packages/react/dist/index.d.ts"
+    }
+  ],
+  "docs": {
+    "rootReadme": "README.md",
+    "contributing": "CONTRIBUTING.md",
+    "agents": "AGENTS.md",
+    "llms": "llms.txt",
+    "coreReadme": "packages/core/README.md",
+    "reactReadme": "packages/react/README.md",
+    "websiteReadme": "www/README.md"
+  },
+  "tests": {
+    "unit": "packages/core/tests/unit/modal.test.ts",
+    "integration": "tests/integration/react-integration.test.tsx",
+    "e2e": "tests/e2e/modal.spec.ts",
+    "commands": {
+      "unit": "pnpm test:unit",
+      "integration": "pnpm test:integration",
+      "e2e": "pnpm test"
+    }
+  }
+}

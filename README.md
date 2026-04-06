@@ -8,7 +8,7 @@ Modalogue is a zero-dependency, headless modal engine that provides powerful sta
 
 - **🔧 Truly Framework Agnostic**: Works with React, Vue, Svelte, vanilla JavaScript, or any framework - no type conflicts
 - **📱 Navigation History**: Built-in back/forward navigation with history management
-- **🎯 Singleton Pattern**: Global state management with automatic cleanup
+- **🧩 Instance-Based API**: Use one shared `Modalogue` instance per modal system in your app
 - **⚡ Zero Dependencies**: No external dependencies, truly lightweight
 - **🔄 Reactive**: Real-time state updates with subscriber pattern
 - **🎨 Headless**: Completely unopinionated about UI - you control the presentation
@@ -214,10 +214,28 @@ type ModalContent<T = any> = T;
 
 type ModalState = {
   isOpen: boolean;
-  activeView: { element: ModalContent; id: number } | null;
+  activeView: { element: ModalContent | null; id: number | null };
   hasHistory: boolean;
 };
 ```
+
+## LLM Quick Path
+
+For autonomous tools and coding agents, use these files as canonical sources:
+
+- API behavior: `packages/core/src/index.ts`
+- API types: `packages/core/src/types.ts`
+- Unit behavior contracts: `packages/core/tests/unit/modal.test.ts`
+- Integration behavior contracts: `tests/integration/react-integration.test.tsx`
+- E2E behavior contracts: `tests/e2e/modal.spec.ts`
+- Agent operations guide: `AGENTS.md`
+
+Recommended execution order for automated changes:
+
+1. Read API + tests.
+2. Implement minimal scoped change.
+3. Run `pnpm test:unit`, `pnpm test:integration`, then `pnpm test`.
+4. Update docs if behavior or commands changed.
 
 ## 🔧 Framework Compatibility
 

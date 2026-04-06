@@ -1,0 +1,48 @@
+# Modalogue LLM Index
+
+Modalogue is a monorepo for a headless modal engine and React bindings.
+
+## Packages
+
+- `@modalogue/core`: `packages/core`
+- `@modalogue/react`: `packages/react`
+- Demo website: `www`
+
+## Canonical docs
+
+- Root usage docs: `README.md`
+- Contributor workflow: `CONTRIBUTING.md`
+- Agent workflow and guardrails: `AGENTS.md`
+- Core package docs: `packages/core/README.md`
+- React package docs: `packages/react/README.md`
+- Demo app docs: `www/README.md`
+
+## Canonical API files
+
+- Core implementation: `packages/core/src/index.ts`
+- Core types: `packages/core/src/types.ts`
+
+## Behavioral source of truth
+
+- Unit tests: `packages/core/tests/unit/modal.test.ts`
+- Integration tests: `tests/integration/react-integration.test.tsx`
+- E2E tests: `tests/e2e/modal.spec.ts`
+
+## Commands (repo root)
+
+- Install: `pnpm install`
+- Develop: `pnpm dev`
+- Build: `pnpm build`
+- Type-check: `pnpm type-check`
+- Unit tests: `pnpm test:unit`
+- Integration tests: `pnpm test:integration`
+- E2E tests: `pnpm test`
+
+## API semantics summary
+
+- Instance-based API (`new Modalogue()`), not a global singleton.
+- `open(content)` resets history.
+- `navigate(content)` pushes a new view.
+- `back()` pops history, closes at depth 1.
+- `close()` clears history and hides modal.
+- `hide()` toggles visibility only, preserving history.
